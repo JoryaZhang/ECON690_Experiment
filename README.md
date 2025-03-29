@@ -1,6 +1,7 @@
 ## ECON 690 Experiment Design
 ### We aim to design a cooperation game to study how the third-party advice can affect cooperation...
 
+### Please update what you change/push to let other catch up! <3
 ### March 29
 Zhuoya
 
