@@ -8,25 +8,27 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2 text-center">
-                <h2 style="color: #333;">Round {{ player.round_number }}</h2>
-                <p><strong>Your Role: </strong>{{ player.role }}</p>
-                <p>You are the <strong>{{ player.role }}</strong> player in the sequence.</p>
-                <hr style="border-color: #D3D3D3;">
+                <h2 style="color: #2C3E50;">Round {{ player.round_number }}</h2>
+                <p><strong>Your Role: </strong><span style="color: #2980B9; font-size: 1.2em;">{{ player.role }}</span></p>
+                <p>You are the <strong style="color: #2980B9;">{{ player.role }}</strong> player in the sequence.</p>
+                <hr style="border-color: #BDC3C7;">
 
                 <div class="form-section">
                     <h3 style="color: #2C3E50;">Choose Your Option:</h3>
                     <p><strong>Prize Information:</strong></p>
                     <ul style="font-size: 16px; list-style-type: none; padding: 0;">
-                        <li><strong>If you choose "No", you will receive: </strong><span class="prize" style="color: #E67E22; font-weight: bold;">{{ prize_if_no }}</span></li> <li><strong>instantly if no one before you has chosen "No" </strong>
-                        <li><strong>If you choose "Yes", you will receive: </strong><span class="prize" style="color: #27AE60; font-weight: bold;">{{ prize_if_yes }}</span></li> <li><strong>on the condition of all the other players in your group all choose “Yes” </strong>
+                        <li><strong>If you choose "No", you will receive: </strong><span class="prize" style="color: #d26e4e; font-weight: bold; font-size: 1.1em;">{{ prize_if_no }}</span></li>
+                        <li><strong> on the condition that no other players before you has chosen</strong><span style="color: #d26e4e; font-size: 1.2em;"> "No" </span></strong> </strong></li>
+                        <li><strong>If you choose "Yes", you will receive: </strong><span class="prize" style="color: #3498DB; font-weight: bold; font-size: 1.1em;">{{ prize_if_yes }}</span></li>
+                        <li><strong>on the condition that all other players in your group choose </strong><span style="color: #3498DB; font-size: 1.2em;"> “Yes” </span></strong> </strong></li>
                     </ul>
 
-                    <p style="font-size: 18px;"><strong>{{ cooperation_question }}</strong></p>
+                    <p style="font-size: 18px; font-weight: bold; color: #2C3E50;">{{ cooperation_question }}</p>
                     
                     <form method="post">
                         <div class="btn-group" role="group" aria-label="Cooperation Decision">
-                            <button type="submit" name="cooperate" value="True" class="btn btn-outline-success btn-lg">Yes</button>
-                            <button type="submit" name="cooperate" value="False" class="btn btn-outline-danger btn-lg">No</button>
+                            <button type="submit" name="cooperate" value="True" class="btn btn-outline-primary btn-lg">Yes</button>
+                            <button type="submit" name="cooperate" value="False" class="btn btn-outline-secondary btn-lg">No</button>
                         </div>
                         {{ next_button }}
                     </form>
@@ -42,43 +44,74 @@
         .container {
             margin-top: 50px;
         }
+
         .form-section {
-            background-color: #F8F8F8;
-            padding: 20px;
-            border-radius: 10px;
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
-        .btn-group button {
-            margin: 0 10px;
+
+        h2, h3 {
+            font-weight: 600;
         }
+
+        .btn-group button {
+            margin: 0 15px;
+            border-radius: 8px;
+        }
+
+        .btn-outline-primary {
+            color: #2980B9;
+            border-color: #2980B9;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #2980B9;
+            color: white;
+            border-color: #2980B9;
+        }
+
+        .btn-outline-secondary {
+            color: #d26e4e;
+            border-color: #d26e4e;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #d26e4e;
+            color: white;
+            border-color: #d26e4e;
+        }
+
         .role-info {
             margin-top: 30px;
         }
+
         .role-info ul {
             list-style-type: none;
             padding: 0;
         }
+
         .role-info li {
             font-size: 16px;
+            color: #7F8C8D;
         }
-        .btn-outline-success {
-            color: #27AE60;
-            border-color: #27AE60;
+
+        .prize {
+            font-weight: bold;
+            font-size: 1.1em;
         }
-        .btn-outline-success:hover {
-            background-color: #27AE60;
-            color: white;
-            border-color: #27AE60;
+
+        hr {
+            border-width: 1px;
+            border-color: #BDC3C7;
         }
-        .btn-outline-danger {
-            color: #E67E22;
-            border-color: #E67E22;
-        }
-        .btn-outline-danger:hover {
-            background-color: #E67E22;
-            color: white;
-            border-color: #E67E22;
+
+        .highlight {
+            color: #2980B9;
+            font-size: 1.2em;
+            font-weight: bold;
         }
     </style>
 {% endblock %}

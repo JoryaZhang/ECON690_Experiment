@@ -1,6 +1,24 @@
-{{ block title }}Results{{ endblock }}
-{{ block content }}
-    As a result, you earned {{ player.payoff }}.
-    {{ next_button }}
+{% extends "global/Page.html" %}
 
-{{ endblock }}
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 text-center">
+                <h2>Your Total Payoff</h2>
+                <p><strong>Your total accumulated payoff is: </strong><span style="color: #2980B9; font-size: 1.2em;">{{ total_payoff }}</span></p>
+                <hr style="border-color: #BDC3C7;">
+
+                <h3>Summary of All Players</h3>
+                <ul>
+                    {% for player in group.get_players %}
+                        <li>Player {{ player.id_in_group }}: <strong>{{ player.payoff }}</strong></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

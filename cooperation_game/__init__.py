@@ -8,9 +8,10 @@ are shuffled every round, and players are informed of their position.
 """
 
 class C(BaseConstants):
+    ##!!!!! Reduce players and round is for testing, change it back!!!!###
     NAME_IN_URL = 'position_shuffle'
-    PLAYERS_PER_GROUP = 5
-    NUM_ROUNDS = 5
+    PLAYERS_PER_GROUP = 3
+    NUM_ROUNDS = 2 ##!!!!! 2 is for testing change it back###
     FST_ROLE = '1st'
     SCD_ROLE = '2nd'
     TRD_ROLE = '3rd'
@@ -52,19 +53,29 @@ def other_player(player: Player):
 
 def set_payoffs(group: Group):
     players = group.get_players()
-    # Check if anyone chooses "No"
-    any_no = any([p.cooperate is False for p in players])
 
-    if any_no:
+    # Find the first player who chose "No"
+    first_no_player = None
+    for player in players:
+        if player.cooperate is False:
+            first_no_player = player
+            break  # Stop at the first player who chooses "No"
+
+    # Set payoffs based on the new rule
+    if first_no_player:
         for player in players:
             if player.cooperate is False:
-                player.payoff = C.PAYOFF_BAD  # The player who chooses "No" gets PAYOFF_BAD
+                if player == first_no_player:
+                    player.payoff = C.PAYOFF_BAD  # First "No" player gets PAYOFF_BAD
+                else:
+                    player.payoff = C.PAYOFF_LOSE  # Other "No" players get PAYOFF_LOSE
             else:
-                player.payoff = C.PAYOFF_LOSE  # All other players get PAYOFF_LOSE
+                player.payoff = C.PAYOFF_GOOD  # Players who choose "Yes" get PAYOFF_GOOD
     else:
         for player in players:
             player.payoff = C.PAYOFF_GOOD  # If all choose "Yes", everyone gets PAYOFF_GOOD
 
+    # Update the total payoff for each player
 
 
 # PAGES
@@ -101,11 +112,18 @@ class AgentPage(Page):
 
 
 class ResultsWaitPage(WaitPage):
+    
     after_all_players_arrive = set_payoffs 
 
 
 class Results(Page):
     form_model = 'player'
-    
-
+    def is_displayed(player):
+        # Show results only after the last round
+        return player.round_number == C.NUM_ROUNDS
+    def vars_for_template(player):
+        # Pass total payoff to the template
+        return {
+            'total_payoff': player.payoff
+        }
 page_sequence = [Introduction, AgentPage, ResultsWaitPage, Results]
