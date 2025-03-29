@@ -1,7 +1,84 @@
-{{ block title }}Results{{ endblock }}
-{{ block content }}
-    You are the {{ player.role }}. player in the sequence
-    {{formfields}}
-    {{ next_button }}
+{% extends "global/Page.html" %}
 
-{{ endblock }}
+{% block title %}
+    Your Choice
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 text-center">
+                <h2 style="color: #333;">Round {{ player.round_number }}</h2>
+                <p><strong>Your Role: </strong>{{ player.role }}</p>
+                <p>You are the <strong>{{ player.role }}</strong> player in the sequence.</p>
+                <hr style="border-color: #D3D3D3;">
+
+                <div class="form-section">
+                    <h3 style="color: #2C3E50;">Choose Your Option:</h3>
+                    <p><strong>Prize Information:</strong></p>
+                    <ul style="font-size: 16px; list-style-type: none; padding: 0;">
+                        <li><strong>If you choose "No", you will receive: </strong><span class="prize" style="color: #E67E22; font-weight: bold;">{{ prize_if_no }}</span></li> <li><strong>instantly if no one before you has chosen "No" </strong>
+                        <li><strong>If you choose "Yes", you will receive: </strong><span class="prize" style="color: #27AE60; font-weight: bold;">{{ prize_if_yes }}</span></li> <li><strong>on the condition of all the other players in your group all choose “Yes” </strong>
+                    </ul>
+
+                    <p style="font-size: 18px;"><strong>{{ cooperation_question }}</strong></p>
+                    
+                    <form method="post">
+                        <div class="btn-group" role="group" aria-label="Cooperation Decision">
+                            <button type="submit" name="cooperate" value="True" class="btn btn-outline-success btn-lg">Yes</button>
+                            <button type="submit" name="cooperate" value="False" class="btn btn-outline-danger btn-lg">No</button>
+                        </div>
+                        {{ next_button }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .form-section {
+            background-color: #F8F8F8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .btn-group button {
+            margin: 0 10px;
+        }
+        .role-info {
+            margin-top: 30px;
+        }
+        .role-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .role-info li {
+            font-size: 16px;
+        }
+        .btn-outline-success {
+            color: #27AE60;
+            border-color: #27AE60;
+        }
+        .btn-outline-success:hover {
+            background-color: #27AE60;
+            color: white;
+            border-color: #27AE60;
+        }
+        .btn-outline-danger {
+            color: #E67E22;
+            border-color: #E67E22;
+        }
+        .btn-outline-danger:hover {
+            background-color: #E67E22;
+            color: white;
+            border-color: #E67E22;
+        }
+    </style>
+{% endblock %}

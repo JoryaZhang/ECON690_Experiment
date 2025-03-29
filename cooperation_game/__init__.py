@@ -74,6 +74,14 @@ class Introduction(Page):
 class AgentPage(Page):
     form_model = 'player'
     form_fields = ['cooperate']  
+    def vars_for_template(player):
+        # Pass prize information, the cooperation question, and roles
+        return {
+            'prize_if_no': C.PAYOFF_BAD,
+            'prize_if_yes': C.PAYOFF_GOOD,
+            'role': player.role,
+            'cooperation_question': "Do you want to cooperate?"  # Add the cooperation question here
+        }
 
     
     
