@@ -12,8 +12,9 @@ SESSION_CONFIGS = [
     #     name='survey', app_sequence=['survey', 'payment_info'], num_demo_participants=1
     # ),
     dict(
-        name='public_goods',
-        app_sequence=['public_goods_simple'],
+        display_name="cooperation_game",
+        name='cooperation_game',
+        app_sequence=['cooperation_game'],
         num_demo_participants=5
     )
 ]
