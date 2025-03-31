@@ -16,5 +16,15 @@ Remain to-do:
 2. Set player payoff reasonably: repeat for 2/3 rounds and then change the payoff, repeat
 3. Embellish the interface.
 4. Design Result page
-5. Make the players remain in the same group for all the rounds, might need to change the randomize function. 
+
+### March 30
+Done:
+1. set different payoff in different rounds
+2. solve acculumate payoff
+
+To-do:
+1. Introduction part: explain the rule carefully, highlight
+2. In the second-half (5 rounds after advice) of the game, make sure to repeat the roles for same player (try store the id_matrix in the first-half)
+3. Embellish the interface.
+4. Design Result page (Advice, whether to show others' payoff, show cooperation rate etc.)
 
