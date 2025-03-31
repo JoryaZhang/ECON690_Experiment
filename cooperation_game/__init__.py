@@ -18,17 +18,19 @@ class C(BaseConstants):
     FOUR_ROLE = '4th'
     FIF_ROLE = '5th'
 
-    PAYOFF_BAD = cu(4)  # Prize if the player chooses "No"
-    PAYOFF_GOOD = cu(10)
+    PAYOFF_S1 = cu(2)  # Prize if the player chooses "No"
+    PAYOFF_GOOD = cu(6)
     PAYOFF_LOSE = cu(0)
+    PAYOFF_S2 = cu(4)
 
 class Subsession(BaseSubsession):
-    def creating_session(self):
-        self.group_randomly()
+    def creating_session(subsession):
+        subsession.group_randomly()
 
 
 class Group(BaseGroup):
-    pass
+    def shuffle_role(group):
+        group.get_players()
 
 
 class Player(BasePlayer):
@@ -40,16 +42,13 @@ class Player(BasePlayer):
 
 
 # FUNCTIONS
-# def set_positions(group: Group):
-#     players = group.get_players()
-#     random.shuffle(positions)  # Shuffle positions
-#     for i, player in enumerate(players):
-#         player.position = positions[i]
+
+# def other_player(player: Player):
+#     return player.get_others_in_group()[0]
 def creating_session(subsession):
     subsession.group_randomly()
-
-def other_player(player: Player):
-    return player.get_others_in_group()[0]
+# def shuffle_role(group: Group):
+#     group.get_players()
 
 def set_payoffs(group: Group):
     players = group.get_players()
@@ -60,21 +59,28 @@ def set_payoffs(group: Group):
         if player.cooperate is False:
             first_no_player = player
             break  # Stop at the first player who chooses "No"
-
+    if player.round_number <=3:
     # Set payoffs based on the new rule
-    if first_no_player:
-        for player in players:
-            if player.cooperate is False:
+        if first_no_player != None:
+            for player in players:
+                    if player == first_no_player:
+                        player.payoff = C.PAYOFF_S1  # First "No" player gets PAYOFF_BAD
+                    else:
+                        player.payoff = C.PAYOFF_LOSE  # Other "No" players get PAYOFF_LOSE
+        else:
+            for player in players:
+                player.payoff = C.PAYOFF_GOOD  # Players who choose "Yes" get PAYOFF_GOOD
+    elif player.round_number > 3:
+        # Set payoffs based on the original rule
+        if first_no_player != None:
+            for player in players:
                 if player == first_no_player:
-                    player.payoff = C.PAYOFF_BAD  # First "No" player gets PAYOFF_BAD
+                    player.payoff = C.PAYOFF_S2  # First "No" player gets PAYOFF_S2
                 else:
                     player.payoff = C.PAYOFF_LOSE  # Other "No" players get PAYOFF_LOSE
-            else:
+        else:
+            for player in players:
                 player.payoff = C.PAYOFF_GOOD  # Players who choose "Yes" get PAYOFF_GOOD
-    else:
-        for player in players:
-            player.payoff = C.PAYOFF_GOOD  # If all choose "Yes", everyone gets PAYOFF_GOOD
-
     # Update the total payoff for each player
 
 
@@ -87,14 +93,19 @@ class AgentPage(Page):
     form_fields = ['cooperate']  
     def vars_for_template(player):
         # Pass prize information, the cooperation question, and roles
+        if player.round_number<=3: 
+            prize = C.PAYOFF_S1
+        elif player.round_number > 3:
+            prize = C.PAYOFF_S2
         return {
-            'prize_if_no': C.PAYOFF_BAD,
-            'prize_if_yes': C.PAYOFF_GOOD,
-            'role': player.role,
-            'cooperation_question': "Do you want to cooperate?"  # Add the cooperation question here
-        }
+                'prize_if_no': prize,
+                'prize_if_yes': C.PAYOFF_GOOD,
+                'role': player.role,
+                'cooperation_question': "Do you want to cooperate?"  # Add the cooperation question here
+            }
+        
 
-    
+        
     
 # class PositionDisplay(Page):
 #     form_model = 'player'
@@ -124,6 +135,8 @@ class Results(Page):
     def vars_for_template(player):
         # Pass total payoff to the template
         return {
-            'total_payoff': player.payoff
+            'total_payoff': player.participant.payoff
         }
 page_sequence = [Introduction, AgentPage, ResultsWaitPage, Results]
+
+# page_sequence = [Introduction, AgentPage, Results]

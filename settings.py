@@ -15,7 +15,7 @@ SESSION_CONFIGS = [
         display_name="cooperation_game",
         name='cooperation_game',
         app_sequence=['cooperation_game'],
-        num_demo_participants=6
+        num_demo_participants=3
     )
 ]
 
