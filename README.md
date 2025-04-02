@@ -31,6 +31,7 @@ To-do:
 Done:
 1. Repeat the roles for same player in the second half
 2. Yuxuan: Finish and upload the Instructions part to explain the rule carefully and open to adjustment accordingly due to the bonus amount settings.
+
 To-do:
 1. Introduction part: explain the rule carefully, highlight. (Finish the instrunction structure code alreadly)
 2. Embellish the interface.
