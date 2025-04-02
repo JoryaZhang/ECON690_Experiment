@@ -1,7 +1,6 @@
 ## ECON 690 Experiment Design
 ### We aim to design a cooperation game to study how the third-party advice can affect cooperation...
 
-### Please update what you change/push to let other catch up! <3
 ### March 29
 Zhuoya
 
@@ -28,3 +27,11 @@ To-do:
 3. Embellish the interface.
 4. Design Result page (Advice, whether to show others' payoff, show cooperation rate etc.)
 
+### April 1
+Done:
+1.  repeat the roles for same player in the second half
+
+To-do:
+1. Introduction part: explain the rule carefully, highlight
+2. Embellish the interface.
+3. Design Result page (Advice, whether to show others' payoff, show cooperation rate etc.)
