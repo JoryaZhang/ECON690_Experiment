@@ -7,7 +7,7 @@ Each player is assigned a unique position from 1 to 5 in each round. The positio
 are shuffled every round, and players are informed of their position.
 """
 #####################
-# 1. Check the criterion, should change to 5/10 rounds
+# 1. Check the criterion (highlighted lines), should change to 5/10 rounds
 # 2. Check whether everyone's payoff is correct
 #####################
 
