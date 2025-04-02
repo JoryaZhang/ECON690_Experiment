@@ -6,12 +6,16 @@ This experiment involves assigning random positions to players in each round.
 Each player is assigned a unique position from 1 to 5 in each round. The positions 
 are shuffled every round, and players are informed of their position.
 """
+#####################
+# 1. Check the criterion, should change to 5/10 rounds
+# 2. Check whether everyone's payoff is correct
+#####################
 
 class C(BaseConstants):
     ##!!!!! Reduce players and round is for testing, change it back!!!!###
     NAME_IN_URL = 'position_shuffle'
     PLAYERS_PER_GROUP = 3
-    NUM_ROUNDS = 2 ##!!!!! 2 is for testing change it back###
+    NUM_ROUNDS = 4 ##!!!!! 2 is for testing change it back###
     FST_ROLE = '1st'
     SCD_ROLE = '2nd'
     TRD_ROLE = '3rd'
@@ -24,8 +28,7 @@ class C(BaseConstants):
     PAYOFF_S2 = cu(4)
 
 class Subsession(BaseSubsession):
-    def creating_session(subsession):
-        subsession.group_randomly()
+    pass
 
 
 class Group(BaseGroup):
@@ -35,7 +38,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     cooperate = models.BooleanField(
-        choices=[[True, 'Yes'], [False, 'No']],
+        choices=[[True, 'Yes'], [False, 'I quit']],
         doc="""This player's decision""",
         widget=widgets.RadioSelect,
     )
@@ -43,10 +46,26 @@ class Player(BasePlayer):
 
 # FUNCTIONS
 
-# def other_player(player: Player):
-#     return player.get_others_in_group()[0]
+# This function random the positions of player each round and store the group matrix
+# set the round number as 4 for now, change it to 10 at last
 def creating_session(subsession):
-    subsession.group_randomly()
+    #change the criterion to 5
+    if subsession.round_number <= 2:
+        subsession.group_randomly()
+    if subsession.round_number >2:
+        #change to '-5'
+        subsession.group_like_round(subsession.round_number-2)
+# def creating_session(subsession):
+#     positions = []
+#     if subsession.round_number <= 2:
+#         subsession.group_randomly()
+#         positions.append(subsession.get_group_matrix())
+#     if subsession.round_number >2:
+#         subsession.set_group_matrix(positions[-1])
+#\\\\ didn't work\\\\\
+
+
+
 # def shuffle_role(group: Group):
 #     group.get_players()
 
@@ -61,27 +80,26 @@ def set_payoffs(group: Group):
             break  # Stop at the first player who chooses "No"
     if player.round_number <=3:
     # Set payoffs based on the new rule
-        if first_no_player != None:
+        if first_no_player is not None:
             for player in players:
-                    if player == first_no_player:
-                        player.payoff = C.PAYOFF_S1  # First "No" player gets PAYOFF_BAD
-                    else:
-                        player.payoff = C.PAYOFF_LOSE  # Other "No" players get PAYOFF_LOSE
+                if player == first_no_player:
+                    player.payoff = C.PAYOFF_S1  # First "No" player gets PAYOFF_S1
+                else:
+                    player.payoff = C.PAYOFF_LOSE  # Other players get PAYOFF_LOSE
         else:
             for player in players:
-                player.payoff = C.PAYOFF_GOOD  # Players who choose "Yes" get PAYOFF_GOOD
+                player.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
     elif player.round_number > 3:
         # Set payoffs based on the original rule
-        if first_no_player != None:
+        if first_no_player is not None:
             for player in players:
                 if player == first_no_player:
                     player.payoff = C.PAYOFF_S2  # First "No" player gets PAYOFF_S2
                 else:
-                    player.payoff = C.PAYOFF_LOSE  # Other "No" players get PAYOFF_LOSE
+                    player.payoff = C.PAYOFF_LOSE  # Other players get PAYOFF_LOSE
         else:
             for player in players:
-                player.payoff = C.PAYOFF_GOOD  # Players who choose "Yes" get PAYOFF_GOOD
-    # Update the total payoff for each player
+                player.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
 
 
 # PAGES
@@ -93,9 +111,9 @@ class AgentPage(Page):
     form_fields = ['cooperate']  
     def vars_for_template(player):
         # Pass prize information, the cooperation question, and roles
-        if player.round_number<=3: 
+        if player.round_number<=3 or (player.round_number >5 and player.round_number <=8): 
             prize = C.PAYOFF_S1
-        elif player.round_number > 3:
+        elif (player.round_number > 3 and player.round_number <= 5) or (player.round_number > 8):
             prize = C.PAYOFF_S2
         return {
                 'prize_if_no': prize,
@@ -130,9 +148,13 @@ class ResultsWaitPage(WaitPage):
 class Results(Page):
     form_model = 'player'
     def is_displayed(player):
-        # Show results only after the last round
-        return player.round_number == C.NUM_ROUNDS
+        # Show results only on round 2 or the final round
+        return player.round_number == 2 or player.round_number == C.NUM_ROUNDS
     def vars_for_template(player):
+        if player.round_number == 3:
+            #reset everyone's payoff to zero
+            for p in player.group.get_players():
+                p.participant.payoff = cu(0)
         # Pass total payoff to the template
         return {
             'total_payoff': player.participant.payoff

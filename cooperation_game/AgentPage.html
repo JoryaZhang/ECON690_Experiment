@@ -18,7 +18,7 @@
                     <p><strong>Prize Information:</strong></p>
                     <ul style="font-size: 16px; list-style-type: none; padding: 0;">
                         <li><strong>If you choose "No", you will receive: </strong><span class="prize" style="color: #d26e4e; font-weight: bold; font-size: 1.1em;">{{ prize_if_no }}</span></li>
-                        <li><strong> on the condition that no other players before you has chosen</strong><span style="color: #d26e4e; font-size: 1.2em;"> "No" </span></strong> </strong></li>
+                        <li><strong> on the condition that no other players before you has chosen</strong><span style="color: #d26e4e; font-size: 1.2em;"> "Quit" </span></strong> </strong></li>
                         <li><strong>If you choose "Yes", you will receive: </strong><span class="prize" style="color: #3498DB; font-weight: bold; font-size: 1.1em;">{{ prize_if_yes }}</span></li>
                         <li><strong>on the condition that all other players in your group choose </strong><span style="color: #3498DB; font-size: 1.2em;"> “Yes” </span></strong> </strong></li>
                     </ul>
@@ -28,7 +28,7 @@
                     <form method="post">
                         <div class="btn-group" role="group" aria-label="Cooperation Decision">
                             <button type="submit" name="cooperate" value="True" class="btn btn-outline-primary btn-lg">Yes</button>
-                            <button type="submit" name="cooperate" value="False" class="btn btn-outline-secondary btn-lg">No</button>
+                            <button type="submit" name="cooperate" value="False" class="btn btn-outline-secondary btn-lg">I quit</button>
                         </div>
                         {{ next_button }}
                     </form>
