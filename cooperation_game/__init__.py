@@ -104,7 +104,10 @@ def set_payoffs(group: Group):
 
 # PAGES
 class Introduction(Page):
-    pass
+     form_model = 'player'
+     def is_displayed(player):
+        # Show results only on round 2 or the final round
+        return player.round_number == 1
 
 class AgentPage(Page):
     form_model = 'player'
