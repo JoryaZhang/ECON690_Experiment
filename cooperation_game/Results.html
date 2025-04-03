@@ -11,10 +11,13 @@
                 <div class="result-card">
                     <h2 style="color: #2C3E50; font-weight: 600;">Your Total Payoff</h2>
                     
-                    <!-- Single line, same font size, black text for the label -->
+                    <!-- Single line: label in black, payoff in blue -->
                     <p style="font-size: 1.2em; color: #000000;">
                         <strong>
-                            Your total accumulated payoff is: {{ total_payoff }}
+                            Your total accumulated payoff is: 
+                            <span style="color: #2980B9;">
+                                {{ total_payoff }}
+                            </span>
                         </strong>
                     </p>
 
@@ -68,17 +71,26 @@
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
+                    <!-- Summary of All Players: same style as "Experiment Summary" -->
                     <h3 style="color: #2C3E50;">Summary of All Players</h3>
-                    <ul style="list-style-type: none; padding: 0; font-size: 1.1em; color: #7F8C8D;">
-                        {% for p in group.get_players %}
-                            <li>
-                                <strong>Player {{ p.id_in_group }}:</strong> 
-                                <span style="color: #2980B9;">{{ p.participant.payoff }}</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    <table class="summary-table">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>Payoff</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in group.get_players %}
+                            <tr>
+                                <td>Player {{ p.id_in_group }}</td>
+                                <td>{{ p.participant.payoff }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 
-                    <!-- Show the next button only for round 2 (if desired) -->
+                    <!-- Show the next button only for round 2 (if relevant) -->
                     {% if player.round_number == 2 %}
                         <div class="next-button-container">
                             {{ next_button }}
