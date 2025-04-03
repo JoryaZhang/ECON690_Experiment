@@ -119,24 +119,6 @@
                         </tbody>
                     </table>
 
-                    <!-- Show the special label + Next button only if round is 5 or 10 -->
-                    {% if player.round_number == 5 or player.round_number == 10 %}
-                        <hr style="margin-top: 30px; margin-bottom: 20px;">
-
-                        {% if player.round_number == 5 %}
-                            <p style="font-size: 1.3em; font-weight: bold;">
-                                Round 5
-                            </p>
-                        {% else %}
-                            <p style="font-size: 1.3em; font-weight: bold;">
-                                Round 10 (the end round)
-                            </p>
-                        {% endif %}
-
-                        <div class="next-button-container">
-                            {{ next_button }}
-                        </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -181,23 +163,6 @@
             text-align: center;
         }
 
-        .next-button-container {
-            margin-top: 20px;
-        }
 
-        .next-button-container button {
-            background-color: #2980B9;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .next-button-container button:hover {
-            background-color: #1F6B8A;
-        }
     </style>
 {% endblock %}
