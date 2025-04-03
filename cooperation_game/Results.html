@@ -119,6 +119,25 @@
                         </tbody>
                     </table>
 
+                    <!-- Conditional block: if it's round 5 or round 10, show special text & Next button -->
+                    {% if player.round_number == 5 or player.round_number == 10 %}
+                        <hr style="margin-top: 30px; margin-bottom: 20px;">
+
+                        {% if player.round_number == 5 %}
+                            <p style="font-size: 1.3em; font-weight: bold;">
+                                Round 5
+                            </p>
+                        {% else %}
+                            <p style="font-size: 1.3em; font-weight: bold;">
+                                Round 10 (the end round)
+                            </p>
+                        {% endif %}
+
+                        <div style="margin-top: 20px;">
+                            {{ next_button }}
+                        </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
@@ -162,7 +181,5 @@
         .summary-table th {
             text-align: center;
         }
-
-
     </style>
 {% endblock %}
