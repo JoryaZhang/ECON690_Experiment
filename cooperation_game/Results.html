@@ -91,24 +91,17 @@
                                 <td>Player {{ p.id_in_group }}</td>
                                 <td>{{ p.player_condition }}</td>
                                 <td>{{ p.participant.payoff }}</td>
-
-                                <!-- Show acceptance_expert if not None; otherwise blank -->
                                 <td>
                                     {% if p.acceptance_expert is not none %}
                                         {{ p.acceptance_expert }}%
                                     {% endif %}
                                 </td>
-
-                                <!-- Show acceptance_ai if not None; otherwise blank -->
                                 <td>
                                     {% if p.acceptance_ai is not none %}
                                         {{ p.acceptance_ai }}%
                                     {% endif %}
                                 </td>
-
                                 <td>{{ p.cooperation_rate }}%</td>
-
-                                <!-- Detail button to a new page -->
                                 <td>
                                     <a href="{% url 'player_detail' p.id_in_group %}" class="btn btn-sm btn-primary">
                                         Detail
@@ -118,6 +111,17 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    <!-- Conditional check for Round 5 or Round 10, above the Next button -->
+                    {% if player.round_number == 5 or player.round_number == 10 %}
+                        <p style="font-size: 1.2em; font-weight: bold; margin-top: 20px;">
+                            {% if player.round_number == 5 %}
+                                Round 5
+                            {% else %}
+                                Round 10 (the end round)
+                            {% endif %}
+                        </p>
+                    {% endif %}
 
                     <!-- Next button at the bottom -->
                     <div style="margin-top: 20px; text-align:center;">
