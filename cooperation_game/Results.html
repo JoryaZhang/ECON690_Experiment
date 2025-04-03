@@ -119,6 +119,12 @@
                         </tbody>
                     </table>
 
+                    <!-- Show the next button only for round 2 (if relevant) -->
+                    {% if player.round_number == 2 %}
+                        <div class="next-button-container">
+                            {{ next_button }}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -163,6 +169,23 @@
             text-align: center;
         }
 
+        .next-button-container {
+            margin-top: 40px;
+        }
 
+        .next-button-container button {
+            background-color: #2980B9;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-button-container button:hover {
+            background-color: #1F6B8A;
+        }
     </style>
 {% endblock %}
