@@ -11,19 +11,16 @@
                 <div class="result-card">
                     <h2 style="color: #2C3E50; font-weight: 600;">Your Total Payoff</h2>
                     
-                    <!-- Single line for payoff -->
-                    <p style="font-size: 1.2em; color: #2980B9;">
+                    <!-- Single line, same font size, black text for the label -->
+                    <p style="font-size: 1.2em; color: #000000;">
                         <strong>
-                            Your total accumulated payoff is: 
-                            <span style="font-size: 1.5em; font-weight: 600; color: #2980B9;">
-                                {{ total_payoff }}
-                            </span>
+                            Your total accumulated payoff is: {{ total_payoff }}
                         </strong>
                     </p>
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
-                    <!-- Experiment Summary: Display player's condition and a table of all conditions -->
+                    <!-- Experiment Summary: Display player's condition and table of all conditions -->
                     <h3 style="color: #2C3E50;">Experiment Summary</h3>
                     <p><strong>Your Condition:</strong> {{ player_condition }}</p>
 
@@ -36,35 +33,28 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- No Advice row => Acceptance Rate is blank -->
                             <tr>
                                 <td>No Advice</td>
-                                <td>
-                                    {% if acceptance_no %}
-                                        {{ acceptance_no }}%
-                                    {% else %}
-                                        &mdash;
-                                    {% endif %}
-                                </td>
+                                <td></td>
                                 <td>{{ cooperation_no }}%</td>
                             </tr>
+                            <!-- Expert’s Advice row -->
                             <tr>
                                 <td>Expert’s Advice</td>
                                 <td>
                                     {% if acceptance_expert is not none %}
                                         {{ acceptance_expert }}%
-                                    {% else %}
-                                        &mdash;
                                     {% endif %}
                                 </td>
                                 <td>{{ cooperation_expert }}%</td>
                             </tr>
+                            <!-- AI Advice row -->
                             <tr>
                                 <td>AI Advice</td>
                                 <td>
                                     {% if acceptance_ai is not none %}
                                         {{ acceptance_ai }}%
-                                    {% else %}
-                                        &mdash;
                                     {% endif %}
                                 </td>
                                 <td>{{ cooperation_ai }}%</td>
@@ -88,7 +78,7 @@
                         {% endfor %}
                     </ul>
 
-                    <!-- Show the next button only for round 2 -->
+                    <!-- Show the next button only for round 2 (if desired) -->
                     {% if player.round_number == 2 %}
                         <div class="next-button-container">
                             {{ next_button }}
@@ -113,7 +103,7 @@
         h2 {
             font-weight: 600;
         }
-        
+
         h3 {
             font-size: 1.5em;
             color: #2C3E50;
@@ -155,11 +145,6 @@
 
         .next-button-container button:hover {
             background-color: #1F6B8A;
-        }
-
-        .prize {
-            font-weight: bold;
-            font-size: 1.1em;
         }
     </style>
 {% endblock %}
