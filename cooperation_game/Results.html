@@ -15,7 +15,7 @@
                     <p style="font-size: 1.2em; color: #2980B9;">
                         <strong>
                             Your total accumulated payoff is: 
-                            <span style="font-size: 1.2em; font-weight: 600; color: #2980B9;">
+                            <span style="font-size: 1.5em; font-weight: 600; color: #2980B9;">
                                 {{ total_payoff }}
                             </span>
                         </strong>
@@ -23,20 +23,67 @@
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
-                    <!-- NEW: Experiment Summary Section -->
+                    <!-- Experiment Summary: Display player's condition and a table of all conditions -->
                     <h3 style="color: #2C3E50;">Experiment Summary</h3>
-                    <p><strong>Advice Condition:</strong> {{ advice_condition }}</p>
-                    <p><strong>Acceptance Rate of Advice:</strong> {{ acceptance_rate }}%</p>
-                    <p><strong>Overall Cooperation Rate:</strong> {{ cooperation_rate }}%</p>
+                    <p><strong>Your Condition:</strong> {{ player_condition }}</p>
+
+                    <table class="summary-table">
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Acceptance Rate of Advice</th>
+                                <th>Cooperation Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>No Advice</td>
+                                <td>
+                                    {% if acceptance_no %}
+                                        {{ acceptance_no }}%
+                                    {% else %}
+                                        &mdash;
+                                    {% endif %}
+                                </td>
+                                <td>{{ cooperation_no }}%</td>
+                            </tr>
+                            <tr>
+                                <td>Expert’s Advice</td>
+                                <td>
+                                    {% if acceptance_expert is not none %}
+                                        {{ acceptance_expert }}%
+                                    {% else %}
+                                        &mdash;
+                                    {% endif %}
+                                </td>
+                                <td>{{ cooperation_expert }}%</td>
+                            </tr>
+                            <tr>
+                                <td>AI Advice</td>
+                                <td>
+                                    {% if acceptance_ai is not none %}
+                                        {{ acceptance_ai }}%
+                                    {% else %}
+                                        &mdash;
+                                    {% endif %}
+                                </td>
+                                <td>{{ cooperation_ai }}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="margin-top: 20px;">
+                        <strong>Overall Cooperation Rate:</strong> {{ overall_cooperation }}%
+                    </p>
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
                     <h3 style="color: #2C3E50;">Summary of All Players</h3>
                     <ul style="list-style-type: none; padding: 0; font-size: 1.1em; color: #7F8C8D;">
-                        {% for player in group.get_players %}
+                        {% for p in group.get_players %}
                             <li>
-                                <strong>Player {{ player.id_in_group }}:</strong> 
-                                <span style="color: #2980B9;">{{ player.participant.payoff }}</span>
+                                <strong>Player {{ p.id_in_group }}:</strong> 
+                                <span style="color: #2980B9;">{{ p.participant.payoff }}</span>
                             </li>
                         {% endfor %}
                     </ul>
@@ -66,11 +113,29 @@
         h2 {
             font-weight: 600;
         }
-
+        
         h3 {
             font-size: 1.5em;
             color: #2C3E50;
             margin-bottom: 20px;
+        }
+
+        .summary-table {
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .summary-table thead th {
+            border-bottom: 2px solid #BDC3C7;
+            padding-bottom: 8px;
+        }
+        .summary-table tbody td {
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .summary-table td,
+        .summary-table th {
+            text-align: center;
         }
 
         .next-button-container {
