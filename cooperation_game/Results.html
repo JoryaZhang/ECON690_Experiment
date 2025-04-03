@@ -71,7 +71,7 @@
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
-                    <!-- Summary of All Players -->
+                   <!-- Summary of All Players -->
                     <h3 style="color: #2C3E50;">Summary of All Players</h3>
                     <table class="summary-table">
                         <thead>
@@ -81,6 +81,7 @@
                                 <th>Payoff</th>
                                 <th>Acceptance Rate of Advice</th>
                                 <th>Cooperation Rate</th>
+                                <th>Detail</th> <!-- New Column -->
                             </tr>
                         </thead>
                         <tbody>
@@ -92,11 +93,13 @@
                                 <td>
                                     {% if p.player_condition == "Expert’s Advice" or p.player_condition == "AI Advice" %}
                                         {{ p.acceptance_rate }}%
-                                    {% else %}
-                                        <!-- Blank if No Advice -->
                                     {% endif %}
                                 </td>
                                 <td>{{ p.cooperation_rate }}%</td>
+                                <td>
+                                    <!-- Link or button that goes to the new detail page for this player -->
+                                    <a href="{% url 'player_detail' p.id_in_group %}" class="btn btn-sm btn-primary">Detail</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
