@@ -11,10 +11,10 @@
                 <div class="result-card">
                     <h2 style="color: #2C3E50; font-weight: 600;">Your Total Payoff</h2>
                     
-                    <!-- Single line: label in black, payoff in blue -->
+                    <!-- Label in black, payoff in blue -->
                     <p style="font-size: 1.2em; color: #000000;">
                         <strong>
-                            Your total accumulated payoff is: 
+                            Your total accumulated payoff is:
                             <span style="color: #2980B9;">
                                 {{ total_payoff }}
                             </span>
@@ -23,7 +23,7 @@
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
-                    <!-- Experiment Summary: Display player's condition and table of all conditions -->
+                    <!-- Experiment Summary -->
                     <h3 style="color: #2C3E50;">Experiment Summary</h3>
                     <p><strong>Your Condition:</strong> {{ player_condition }}</p>
 
@@ -71,13 +71,14 @@
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
-                    <!-- Summary of All Players: same style as "Experiment Summary" -->
+                    <!-- Summary of All Players: show cooperation rate too -->
                     <h3 style="color: #2C3E50;">Summary of All Players</h3>
                     <table class="summary-table">
                         <thead>
                             <tr>
                                 <th>Player</th>
                                 <th>Payoff</th>
+                                <th>Cooperation Rate</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,12 +86,13 @@
                             <tr>
                                 <td>Player {{ p.id_in_group }}</td>
                                 <td>{{ p.participant.payoff }}</td>
+                                <td>{{ p.cooperation_rate }}%</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
 
-                    <!-- Show the next button only for round 2 (if relevant) -->
+                    <!-- Show the next button only for round 2 (if applicable) -->
                     {% if player.round_number == 2 %}
                         <div class="next-button-container">
                             {{ next_button }}
