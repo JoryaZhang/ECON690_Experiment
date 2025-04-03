@@ -14,35 +14,45 @@ are shuffled every round, and players are informed of their position.
 class C(BaseConstants):
     ##!!!!! Reduce players and round is for testing, change it back!!!!###
     NAME_IN_URL = 'position_shuffle'
-    PLAYERS_PER_GROUP = 3
-    NUM_ROUNDS = 4 ##!!!!! 2 is for testing change it back###
+    PLAYERS_PER_GROUP = 3 ##!!!!! 3 is for testing change it back###
+    NUM_ROUNDS = 2 ##!!!!! 2 is for testing change it back###
     FST_ROLE = '1st'
     SCD_ROLE = '2nd'
     TRD_ROLE = '3rd'
     FOUR_ROLE = '4th'
     FIF_ROLE = '5th'
 
-    PAYOFF_S1 = cu(2)  # Prize if the player chooses "No"
-    PAYOFF_GOOD = cu(6)
-    PAYOFF_LOSE = cu(0)
-    PAYOFF_S2 = cu(4)
+    # Payoff settings
+    PAYOFF_S1 = cu(2)   # Prize if the first "No" in rounds 1–5
+    PAYOFF_S2 = cu(4)   # Prize if the first "No" in rounds 6–10
+    PAYOFF_GOOD = cu(6) # If everyone cooperates
+    PAYOFF_LOSE = cu(0) # Others if someone quits
 
 class Subsession(BaseSubsession):
-    pass
-
+    """
+    Random grouping for the first 5 rounds.
+    For rounds 6–10, copy the group matrix from 5 rounds ago.
+    """
+    def creating_session(self):
+        if self.round_number <= 5:
+            self.group_randomly()
+        else:
+            self.group_like_round(self.round_number - 5)
 
 class Group(BaseGroup):
-    def shuffle_role(group):
-        group.get_players()
-
+    # def shuffle_role(group):
+    #    group.get_players()
+    pass
 
 class Player(BasePlayer):
     cooperate = models.BooleanField(
-        choices=[[True, 'Yes'], [False, 'I quit']],
-        doc="""This player's decision""",
+        choices=[
+            [True, 'Yes'],
+            [False, 'I quit']
+        ],
+        doc="This player's decision each round",
         widget=widgets.RadioSelect,
     )
-
 
 # FUNCTIONS
 
@@ -76,40 +86,56 @@ def set_payoffs(group: Group):
     first_no_player = None
     for player in players:
         if player.cooperate is False:
-            first_no_player = player
+            first_no_player = p
             break  # Stop at the first player who chooses "No"
-    if player.round_number <=3:
+    
+    round_number = players[0].round_number
+    
+    if player.round_number <=5:
     # Set payoffs based on the new rule
+        # First 5 rounds
         if first_no_player is not None:
-            for player in players:
-                if player == first_no_player:
-                    player.payoff = C.PAYOFF_S1  # First "No" player gets PAYOFF_S1
+            # The first "No" gets PAYOFF_S1, others get 0
+            for p in players:
+                if p == first_no_player:
+                    p.payoff = C.PAYOFF_S1  # First "No" player gets PAYOFF_S1
                 else:
-                    player.payoff = C.PAYOFF_LOSE  # Other players get PAYOFF_LOSE
+                    p.payoff = C.PAYOFF_LOSE  # Other players get PAYOFF_LOSE
         else:
-            for player in players:
-                player.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
-    elif player.round_number > 3:
+            # Everyone cooperates
+            for p in players:
+                p.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
+    else:
+        # Rounds 6–10
         # Set payoffs based on the original rule
         if first_no_player is not None:
-            for player in players:
-                if player == first_no_player:
-                    player.payoff = C.PAYOFF_S2  # First "No" player gets PAYOFF_S2
+            # The first "No" gets PAYOFF_S2, others get 0
+            for p in players:
+                if p == first_no_player:
+                    p.payoff = C.PAYOFF_S2    # First "No" player gets PAYOFF_S2
                 else:
-                    player.payoff = C.PAYOFF_LOSE  # Other players get PAYOFF_LOSE
+                    p.payoff = C.PAYOFF_LOSE    # Other players get PAYOFF_LOSE
         else:
-            for player in players:
-                player.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
+            # Everyone cooperates
+            for p in players:
+                p.payoff = C.PAYOFF_GOOD    # Everyone gets PAYOFF_GOOD
 
 
 # PAGES
 class Introduction(Page):
+    """
+    Shows multi-step instructions. 
+    Only displayed in round 1 (optional).
+    """
      form_model = 'player'
      def is_displayed(player):
         # Show results only on round 2 or the final round
         return player.round_number == 1
 
 class AgentPage(Page):
+    """
+    Page where players choose 'Yes' or 'I quit'.
+    """
     form_model = 'player'
     form_fields = ['cooperate']  
     def vars_for_template(player):
@@ -144,24 +170,35 @@ class AgentPage(Page):
 
 
 class ResultsWaitPage(WaitPage):
-    
-    after_all_players_arrive = set_payoffs 
+    """
+    WaitPage to ensure all players have chosen.
+    Then set payoffs.
+    """
+    after_all_players_arrive = set_payoffs
 
 
 class Results(Page):
+    """
+    Show results only on round 5 or round 10.
+    Optionally reset payoffs after round 5 if desired.
+    """
     form_model = 'player'
-    def is_displayed(player):
-        # Show results only on round 2 or the final round
-        return player.round_number == 2 or player.round_number == C.NUM_ROUNDS
-    def vars_for_template(player):
-        if player.round_number == 3:
-            #reset everyone's payoff to zero
-            for p in player.group.get_players():
+
+    def is_displayed(self):
+        return self.round_number == 2 or self.round_number == C.NUM_ROUNDS
+
+    def vars_for_template(self):
+        # Example: reset everyone's payoff to 0 after round 5
+        # (Remove if you don't want to reset.)
+        if self.round_number == 3:
+            for p in self.group.get_players():
                 p.participant.payoff = cu(0)
-        # Pass total payoff to the template
+
         return {
-            'total_payoff': player.participant.payoff
+            'total_payoff': self.player.participant.payoff
         }
+
+
 page_sequence = [Introduction, AgentPage, ResultsWaitPage, Results]
 
 # page_sequence = [Introduction, AgentPage, Results]
