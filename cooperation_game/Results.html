@@ -119,11 +119,9 @@
                         </tbody>
                     </table>
 
-                    <!-- Next button at the bottom: same style as the Go Back button -->
+                    <!-- Next button at the bottom -->
                     <div style="margin-top: 20px; text-align:center;">
-                        <button class="btn btn-secondary" type="button">
-                            Next
-                        </button>
+                        <button class="btn btn-success" type="button">Next</button>
                     </div>
 
                 </div>
@@ -168,6 +166,13 @@
         .summary-table td,
         .summary-table th {
             text-align: center;
+        }
+
+        /* Optional: style for the Next button */
+        .btn-success {
+            font-size: 1.1em;
+            padding: 10px 25px;
+            border-radius: 8px;
         }
     </style>
 {% endblock %}
