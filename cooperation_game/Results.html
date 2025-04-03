@@ -71,7 +71,7 @@
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
-                   <!-- Summary of All Players -->
+                    <!-- Summary of All Players -->
                     <h3 style="color: #2C3E50;">Summary of All Players</h3>
                     <table class="summary-table">
                         <thead>
@@ -79,9 +79,10 @@
                                 <th>Player</th>
                                 <th>Condition</th>
                                 <th>Payoff</th>
-                                <th>Acceptance Rate of Advice</th>
+                                <th>Acceptance Rate of Expert Advice</th>
+                                <th>Acceptance Rate of AI Advice</th>
                                 <th>Cooperation Rate</th>
-                                <th>Detail</th> <!-- New Column -->
+                                <th>Detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,22 +91,35 @@
                                 <td>Player {{ p.id_in_group }}</td>
                                 <td>{{ p.player_condition }}</td>
                                 <td>{{ p.participant.payoff }}</td>
+
+                                <!-- Show acceptance_expert if not None; otherwise blank -->
                                 <td>
-                                    {% if p.player_condition == "Expert’s Advice" or p.player_condition == "AI Advice" %}
-                                        {{ p.acceptance_rate }}%
+                                    {% if p.acceptance_expert is not none %}
+                                        {{ p.acceptance_expert }}%
                                     {% endif %}
                                 </td>
-                                <td>{{ p.cooperation_rate }}%</td>
+
+                                <!-- Show acceptance_ai if not None; otherwise blank -->
                                 <td>
-                                    <!-- Link or button that goes to the new detail page for this player -->
-                                    <a href="{% url 'player_detail' p.id_in_group %}" class="btn btn-sm btn-primary">Detail</a>
+                                    {% if p.acceptance_ai is not none %}
+                                        {{ p.acceptance_ai }}%
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ p.cooperation_rate }}%</td>
+
+                                <!-- Detail button to a new page -->
+                                <td>
+                                    <a href="{% url 'player_detail' p.id_in_group %}" class="btn btn-sm btn-primary">
+                                        Detail
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
 
-                    <!-- Show the next button only for round 2 (if applicable) -->
+                    <!-- Show the next button only for round 2 (if relevant) -->
                     {% if player.round_number == 2 %}
                         <div class="next-button-container">
                             {{ next_button }}
