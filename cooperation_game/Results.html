@@ -111,13 +111,15 @@
                         </tbody>
                     </table>
 
+                    </p>
+
                     <!-- Conditional check for Round 5 or Round 10 -->
                     {% if player.round_number == 5 or player.round_number == 10 %}
                         <p style="font-size: 1.2em; font-weight: bold; margin-top: 20px;">
                             {% if player.round_number == 5 %}
-                                Round 5
+                                You are in round <strong>5</strong>.
                             {% else %}
-                                Round 10 (the end round)
+                                You are in round <strong>10</strong> (the end round).
                             {% endif %}
                         </p>
                     {% endif %}
