@@ -11,7 +11,6 @@
                 <div class="result-card">
                     <h2 style="color: #2C3E50; font-weight: 600;">Your Total Payoff</h2>
                     
-                    <!-- Label in black, payoff in blue -->
                     <p style="font-size: 1.2em; color: #000000;">
                         <strong>
                             Your total accumulated payoff is:
@@ -36,7 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- No Advice row => Acceptance Rate is blank -->
+                            <!-- No Advice row -->
                             <tr>
                                 <td>No Advice</td>
                                 <td></td>
@@ -112,7 +111,7 @@
                         </tbody>
                     </table>
 
-                    <!-- Conditional check for Round 5 or Round 10, above the Next button -->
+                    <!-- Conditional check for Round 5 or Round 10 -->
                     {% if player.round_number == 5 or player.round_number == 10 %}
                         <p style="font-size: 1.2em; font-weight: bold; margin-top: 20px;">
                             {% if player.round_number == 5 %}
@@ -123,7 +122,7 @@
                         </p>
                     {% endif %}
 
-                    <!-- Next button at the bottom (gray style) -->
+                    <!-- Next button at the bottom -->
                     <div style="margin-top: 20px; text-align:center;">
                         <button class="btn btn-secondary" type="button">Next</button>
                     </div>
