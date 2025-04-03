@@ -11,9 +11,15 @@
                 <div class="result-card">
                     <h2 style="color: #2C3E50; font-weight: 600;">Your Total Payoff</h2>
                     
-                    <!-- Smaller text size for the 'Your total accumulated payoff' portion -->
+                    <!-- Single line for payoff -->
                     <p style="font-size: 1.2em; color: #2980B9;">
-                        <strong>Your total accumulated payoff is: {{ total_payoff }} </strong></p>
+                        <strong>
+                            Your total accumulated payoff is: 
+                            <span style="font-size: 1.2em; font-weight: 600; color: #2980B9;">
+                                {{ total_payoff }}
+                            </span>
+                        </strong>
+                    </p>
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
