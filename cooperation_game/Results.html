@@ -14,7 +14,7 @@
                     <!-- Label in black, payoff in blue -->
                     <p style="font-size: 1.2em; color: #000000;">
                         <strong>
-                            Your total accumulated payoff is:
+                            Your total accumulated payoff is: 
                             <span style="color: #2980B9;">
                                 {{ total_payoff }}
                             </span>
@@ -71,13 +71,15 @@
 
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
-                    <!-- Summary of All Players: show cooperation rate too -->
+                    <!-- Summary of All Players -->
                     <h3 style="color: #2C3E50;">Summary of All Players</h3>
                     <table class="summary-table">
                         <thead>
                             <tr>
                                 <th>Player</th>
+                                <th>Condition</th>
                                 <th>Payoff</th>
+                                <th>Acceptance Rate of Advice</th>
                                 <th>Cooperation Rate</th>
                             </tr>
                         </thead>
@@ -85,7 +87,15 @@
                             {% for p in group.get_players %}
                             <tr>
                                 <td>Player {{ p.id_in_group }}</td>
+                                <td>{{ p.player_condition }}</td>
                                 <td>{{ p.participant.payoff }}</td>
+                                <td>
+                                    {% if p.player_condition == "Expert’s Advice" or p.player_condition == "AI Advice" %}
+                                        {{ p.acceptance_rate }}%
+                                    {% else %}
+                                        <!-- Blank if No Advice -->
+                                    {% endif %}
+                                </td>
                                 <td>{{ p.cooperation_rate }}%</td>
                             </tr>
                             {% endfor %}
