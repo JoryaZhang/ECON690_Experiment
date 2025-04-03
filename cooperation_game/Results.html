@@ -12,12 +12,24 @@
                     <h2 style="color: #2C3E50; font-weight: 600;">Your Total Payoff</h2>
                     <p style="font-size: 1.5em; color: #2980B9;"><strong>Your total accumulated payoff is:</strong></p>
                     <p style="font-size: 2em; font-weight: 600; color: #2980B9;">{{ total_payoff }}</p>
+                    
+                    <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
+
+                    <!-- NEW: Experiment Summary Section -->
+                    <h3 style="color: #2C3E50;">Experiment Summary</h3>
+                    <p><strong>Advice Condition:</strong> {{ advice_condition }}</p>
+                    <p><strong>Acceptance Rate of Advice:</strong> {{ acceptance_rate }}%</p>
+                    <p><strong>Overall Cooperation Rate:</strong> {{ cooperation_rate }}%</p>
+
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
                     <h3 style="color: #2C3E50;">Summary of All Players</h3>
                     <ul style="list-style-type: none; padding: 0; font-size: 1.1em; color: #7F8C8D;">
                         {% for player in group.get_players %}
-                            <li><strong>Player {{ player.id_in_group }}:</strong> <span style="color: #2980B9;">{{ player.participant.payoff }}</span></li>
+                            <li>
+                                <strong>Player {{ player.id_in_group }}:</strong> 
+                                <span style="color: #2980B9;">{{ player.participant.payoff }}</span>
+                            </li>
                         {% endfor %}
                     </ul>
 
@@ -42,21 +54,17 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
-
         h2 {
             font-weight: 600;
         }
-
         h3 {
             font-size: 1.5em;
             color: #2C3E50;
             margin-bottom: 20px;
         }
-
         .next-button-container {
             margin-top: 40px;
         }
-
         .next-button-container button {
             background-color: #2980B9;
             color: white;
@@ -67,15 +75,12 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         .next-button-container button:hover {
             background-color: #1F6B8A;
         }
-
         .prize {
             font-weight: bold;
             font-size: 1.1em;
         }
     </style>
 {% endblock %}
-
