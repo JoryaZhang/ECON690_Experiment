@@ -116,18 +116,16 @@
                     {% if player.round_number == 5 or player.round_number == 10 %}
                         <p style="font-size: 1.2em; font-weight: bold; margin-top: 20px;">
                             {% if player.round_number == 5 %}
-                                </p>
                                 Round 5
                             {% else %}
-                                </p>
                                 Round 10 (the end round)
                             {% endif %}
                         </p>
                     {% endif %}
 
-                    <!-- Next button at the bottom -->
+                    <!-- Next button at the bottom (gray style) -->
                     <div style="margin-top: 20px; text-align:center;">
-                        <button class="btn btn-success" type="button">Next</button>
+                        <button class="btn btn-secondary" type="button">Next</button>
                     </div>
 
                 </div>
@@ -172,13 +170,6 @@
         .summary-table td,
         .summary-table th {
             text-align: center;
-        }
-
-        /* Optional: style for the Next button */
-        .btn-success {
-            font-size: 1.1em;
-            padding: 10px 25px;
-            border-radius: 8px;
         }
     </style>
 {% endblock %}
