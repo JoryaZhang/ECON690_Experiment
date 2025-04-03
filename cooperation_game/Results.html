@@ -14,7 +14,7 @@
                     <!-- Label in black, payoff in blue -->
                     <p style="font-size: 1.2em; color: #000000;">
                         <strong>
-                            Your total accumulated payoff is: 
+                            Your total accumulated payoff is:
                             <span style="color: #2980B9;">
                                 {{ total_payoff }}
                             </span>
@@ -119,6 +119,13 @@
                         </tbody>
                     </table>
 
+                    <!-- Next button at the bottom -->
+                    <div style="margin-top: 30px; text-align:center;">
+                        <button type="button" class="btn btn-success">
+                            Next
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -163,6 +170,11 @@
             text-align: center;
         }
 
-
+        /* Optional: style for the Next button */
+        .btn-success {
+            font-size: 1.1em;
+            padding: 10px 25px;
+            border-radius: 8px;
+        }
     </style>
 {% endblock %}
