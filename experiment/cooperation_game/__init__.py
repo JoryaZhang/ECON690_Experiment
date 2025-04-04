@@ -149,6 +149,9 @@ class AgentPage(Page):
     form_model = 'player'
     form_fields = ['cooperate']  
     def vars_for_template(player):
+        # Show advice in round 5(For test, 3!!)
+        show_advice = (self.round_number == 2)
+        
         # Pass prize information, the cooperation question, and roles
         if player.round_number<=3 or (player.round_number >5 and player.round_number <=8): 
             prize = C.PAYOFF_S1
@@ -159,9 +162,8 @@ class AgentPage(Page):
                 'prize_if_yes': C.PAYOFF_GOOD,
                 'role': player.role,
                 'cooperation_question': "Do you want to cooperate?"  # Add the cooperation question here
+                'show_advice': show_advice,
             }
-        
-
         
     
 # class PositionDisplay(Page):
