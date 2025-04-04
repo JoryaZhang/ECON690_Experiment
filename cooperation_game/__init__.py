@@ -23,7 +23,7 @@ class C(BaseConstants):
     FIF_ROLE = '5th'
 
     # Payoff settings
-    PAYOFF_S1 = cu(2)   # Prize if the first "No" in rounds 1–5
+    PAYOFF_S1 = cu(3)   # Prize if the first "No" in rounds 1–5
     PAYOFF_S2 = cu(4)   # Prize if the first "No" in rounds 6–10
     PAYOFF_GOOD = cu(6) # If everyone cooperates
     PAYOFF_LOSE = cu(0) # Others if someone quits
@@ -83,9 +83,11 @@ def set_payoffs(group: Group):
 
     # Find the first player who chose "No"
     first_no_player = None
+    fail = 0
     for player in players:
         if player.cooperate is False:
             first_no_player = player
+            fail += 1
             break  # Stop at the first player who chooses "No"
     
     # Set payoffs based on the new rule
@@ -176,6 +178,7 @@ class Results(Page):
         if self.round_number == 3:
             for p in self.group.get_players():
                 p.participant.payoff = cu(0)
+        
         return {
             # 'advice_type': advice_type,
             'total_payoff': self.participant.payoff
