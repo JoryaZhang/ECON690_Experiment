@@ -1,0 +1,39 @@
+{{ block title }}
+    Result page
+{{ endblock }}
+
+{{ block content }}
+
+<p>
+    Your name is <i><b>{{ player.name }}</b></i>,
+    Your age is <b>{{ player.age }}</b>.
+
+    <br><br>
+
+    By the way, your hair color is
+
+    {{ if player.hair_color == "blue"}}
+
+    <b style = "color:blue"> {{ player.hair_color}}</b>
+
+    {{ elif player.hair_color == "black"}}
+
+    <b style = "color:black"> {{ player.hair_color}}</b>
+
+    {{ elif player.hair_color == "red"}}
+
+    <b style = "color:red"> {{ player.hair_color}}</b>
+
+    {{ elif player.hair_color == "brown"}}
+
+    <b style = "color:brown"> {{ player.hair_color}}</b>
+
+    {{ else }}
+
+    <b style = "color:gold"> {{ player.hair_color}}</b>
+
+    {{ endif }}
+</p>
+
+    {{ next_button }}
+{{ endblock }}

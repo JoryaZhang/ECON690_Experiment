@@ -1,0 +1,118 @@
+{{ block title }}
+    <p style="text-align: center;">Instructions</p>
+{{ endblock }}
+{{ block content }}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sequential Cooperation Game Instructions</title>
+  <style>
+    .instruction-box {
+      border: 2px solid #ccc;
+      padding: 16px;
+      margin: 20px auto;
+      max-width: 800px;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+    .hidden {
+      display: none;
+    }
+    button {
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px 5px 0 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .nav-button {
+      background-color: #6c757d;
+    }
+    .nav-button:hover {
+      background-color: #5a6268;
+    }
+    .final-button {
+      background-color: #4CAF50;
+    }
+    .final-button:hover {
+      background-color: #45a049;
+    }
+    .button-container {
+      text-align: center;
+    }
+    h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Section 1 -->
+  <div class="instruction-box" id="section1">
+    <h3>Overview</h3><hr>
+    <p>You will participate in a “Sequential Cooperation Game” with a total of <b>n</b> players (including yourself).</p>
+    <p>All <b>n</b> players will remain in the same group throughout the entire experiment.</p>
+    <div class="button-container">
+      <button type="button" class="nav-button" onclick="changeSection('section1', 'section2')">Next</button>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="instruction-box hidden" id="section2">
+    <h3>Position Assignment</h3><hr>
+    <p>At the beginning of each round, you will be randomly assigned a position number from 1 to n.</p>
+    <p>o	If you are the player with position number 1, your decision will be considered first, followed by the player with position number 2, and so on; If you are the player with position number 2, your decision will be considered second, followed by the player with position number 3, and so on.</p>
+    <div class="button-container">
+      <button type="button" class="nav-button" onclick="changeSection('section2', 'section1')">Back</button>
+      <button type="button" class="nav-button" onclick="changeSection('section2', 'section3')">Next</button>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="instruction-box hidden" id="section3">
+    <h3>Number of Rounds</h3><hr>
+    <p>The game will be played for a total of <strong>10</strong> rounds.</p>
+    <p>o	After the first 5 rounds, you will know the all-cooperation round success rate of previous 5 rounds, moreover, there may or may not be additional information provided to help you make decisions for your larger earnings. You may choose whether to take advantage of the provided information or continue with your initial strategy for the remaining 5 rounds.</p>
+    <div class="button-container">
+      <button type="button" class="nav-button" onclick="changeSection('section3', 'section2')">Back</button>
+      <button type="button" class="nav-button" onclick="changeSection('section3', 'section4')">Next</button>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="instruction-box hidden" id="section4">
+    <h3>Decision in Each Round and Possible Outcomes</h3><hr>
+    <p>In each round, if you choose to quit: only when you are the <strong>first quitter<strong> (the player with <strong>smallest<strong> position number), you can receive <strong>k dollars</strong>. Other players earn 0, regadless of their own choices.</p>
+    <p>If you choose to cooperate, only when all the players choose to cooperate: you and each player will earn <strong>t dollars (t>k)</strong>.</p>
+    <p>You will not be informed of your exact earnings at the end of each round. However, as mentioned before, after the first 5 rounds, you can receive the all-cooperation round success rate of previous 5 rounds and maybe some additional information, which could help guide your decisions in the remaining rounds.</p>
+    <div class="button-container">
+      <button type="button" class="nav-button" onclick="changeSection('section4', 'section3')">Back</button>
+      <button type="button" class="nav-button" onclick="changeSection('section4', 'section5')">Next</button>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="instruction-box hidden" id="section5">
+    <h3>Your Total Earnings</h3><hr>
+    <p>At the end of the experiment, your total earnings will be the sum of all payoffs across 10 rounds.</p>
+    <p>Please read these instructions carefully and use them to guide your choices.</p>
+    <p>If you have questions, ask the experimenter before the game starts.</p>
+    <div class="button-container">
+      <button type="button" class="nav-button" onclick="changeSection('section5', 'section4')">Back</button>
+      <button type="submit" class="final-button">Start Study</button>
+    </div>
+  </div>
+
+  <script>
+    function changeSection(currentId, nextId) {
+      document.getElementById(currentId).classList.add('hidden');
+      document.getElementById(nextId).classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
+
+{{ endblock }}
