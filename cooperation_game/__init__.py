@@ -60,20 +60,19 @@ class Player(BasePlayer):
 # set the round number as 4 for now, change it to 10 at last
 def creating_session(subsession):
     #change the criterion to 5
+    advice_type = subsession.session.config['advice_type']
+    player = subsession.get_players()
+    if advice_type == 1:
+        player.participant.vars['advice_type'] = 'None'
+    elif advice_type == 2:
+        player.participant.vars['advice_type'] = 'Expert'
+    elif advice_type == 3:
+        player.participant.vars['advice_type'] = 'AI'
     if subsession.round_number <= 2:
         subsession.group_randomly()
     if subsession.round_number >2:
         #change to '-5'
         subsession.group_like_round(subsession.round_number-2)
-# def creating_session(subsession):
-#     positions = []
-#     if subsession.round_number <= 2:
-#         subsession.group_randomly()
-#         positions.append(subsession.get_group_matrix())
-#     if subsession.round_number >2:
-#         subsession.set_group_matrix(positions[-1])
-#\\\\ didn't work\\\\\
-
 
 
 # def shuffle_role(group: Group):
@@ -86,39 +85,22 @@ def set_payoffs(group: Group):
     first_no_player = None
     for player in players:
         if player.cooperate is False:
-            first_no_player = p
+            first_no_player = player
             break  # Stop at the first player who chooses "No"
     
-    round_number = players[0].round_number
-    
-    if player.round_number <=5:
     # Set payoffs based on the new rule
         # First 5 rounds
-        if first_no_player is not None:
+    if first_no_player is not None:
             # The first "No" gets PAYOFF_S1, others get 0
             for p in players:
                 if p == first_no_player:
                     p.payoff = C.PAYOFF_S1  # First "No" player gets PAYOFF_S1
                 else:
                     p.payoff = C.PAYOFF_LOSE  # Other players get PAYOFF_LOSE
-        else:
+    else:
             # Everyone cooperates
             for p in players:
                 p.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
-    else:
-        # Rounds 6–10
-        # Set payoffs based on the original rule
-        if first_no_player is not None:
-            # The first "No" gets PAYOFF_S2, others get 0
-            for p in players:
-                if p == first_no_player:
-                    p.payoff = C.PAYOFF_S2    # First "No" player gets PAYOFF_S2
-                else:
-                    p.payoff = C.PAYOFF_LOSE    # Other players get PAYOFF_LOSE
-        else:
-            # Everyone cooperates
-            for p in players:
-                p.payoff = C.PAYOFF_GOOD    # Everyone gets PAYOFF_GOOD
 
 
 # PAGES
@@ -127,8 +109,8 @@ class Introduction(Page):
     Shows multi-step instructions. 
     Only displayed in round 1 (optional).
     """
-     form_model = 'player'
-     def is_displayed(player):
+    form_model = 'player'
+    def is_displayed(player):
         # Show results only on round 2 or the final round
         return player.round_number == 1
 
@@ -183,19 +165,20 @@ class Results(Page):
     Optionally reset payoffs after round 5 if desired.
     """
     form_model = 'player'
-
     def is_displayed(self):
+
         return self.round_number == 2 or self.round_number == C.NUM_ROUNDS
 
     def vars_for_template(self):
         # Example: reset everyone's payoff to 0 after round 5
         # (Remove if you don't want to reset.)
+        advice_type = self.participant.vars['advice_type']
         if self.round_number == 3:
             for p in self.group.get_players():
                 p.participant.payoff = cu(0)
-
         return {
-            'total_payoff': self.player.participant.payoff
+            'advice_type': advice_type,
+            'total_payoff': self.participant.payoff
         }
 
 

@@ -10,125 +10,29 @@
             <div class="col-md-8 offset-md-2 text-center">
                 <div class="result-card">
                     <h2 style="color: #2C3E50; font-weight: 600;">Your Total Payoff</h2>
-                    
-                    <p style="font-size: 1.2em; color: #000000;">
-                        <strong>
-                            Your total accumulated payoff is:
-                            <span style="color: #2980B9;">
-                                {{ total_payoff }}
-                            </span>
-                        </strong>
-                    </p>
-
+                    <p style="font-size: 1.5em; color: #2980B9;"><strong>Your total accumulated payoff is:</strong></p>
+                    <p style="font-size: 2em; font-weight: 600; color: #2980B9;">{{ total_payoff }}</p>
                     <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
 
-                    <!-- Experiment Summary -->
-                    <h3 style="color: #2C3E50;">Experiment Summary</h3>
-                    <p><strong>Your Condition:</strong> {{ player_condition }}</p>
-
-                    <table class="summary-table">
-                        <thead>
-                            <tr>
-                                <th>Condition</th>
-                                <th>Acceptance Rate of Advice</th>
-                                <th>Cooperation Rate</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- No Advice row -->
-                            <tr>
-                                <td>No Advice</td>
-                                <td></td>
-                                <td>{{ cooperation_no }}%</td>
-                            </tr>
-                            <!-- Expert’s Advice row -->
-                            <tr>
-                                <td>Expert’s Advice</td>
-                                <td>
-                                    {% if acceptance_expert is not none %}
-                                        {{ acceptance_expert }}%
-                                    {% endif %}
-                                </td>
-                                <td>{{ cooperation_expert }}%</td>
-                            </tr>
-                            <!-- AI Advice row -->
-                            <tr>
-                                <td>AI Advice</td>
-                                <td>
-                                    {% if acceptance_ai is not none %}
-                                        {{ acceptance_ai }}%
-                                    {% endif %}
-                                </td>
-                                <td>{{ cooperation_ai }}%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <p style="margin-top: 20px;">
-                        <strong>Overall Cooperation Rate:</strong> {{ overall_cooperation }}%
-                    </p>
-
-                    <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
-
-                    <!-- Summary of All Players -->
                     <h3 style="color: #2C3E50;">Summary of All Players</h3>
-                    <table class="summary-table">
-                        <thead>
-                            <tr>
-                                <th>Player</th>
-                                <th>Condition</th>
-                                <th>Payoff</th>
-                                <th>Acceptance Rate of Expert Advice</th>
-                                <th>Acceptance Rate of AI Advice</th>
-                                <th>Cooperation Rate</th>
-                                <th>Detail</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for p in group.get_players %}
-                            <tr>
-                                <td>Player {{ p.id_in_group }}</td>
-                                <td>{{ p.player_condition }}</td>
-                                <td>{{ p.participant.payoff }}</td>
-                                <td>
-                                    {% if p.acceptance_expert is not none %}
-                                        {{ p.acceptance_expert }}%
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if p.acceptance_ai is not none %}
-                                        {{ p.acceptance_ai }}%
-                                    {% endif %}
-                                </td>
-                                <td>{{ p.cooperation_rate }}%</td>
-                                <td>
-                                    <a href="{% url 'player_detail' p.id_in_group %}" class="btn btn-sm btn-primary">
-                                        Detail
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-
-                    </p>
-
-                    <!-- Conditional check for Round 5 or Round 10 -->
-                    {% if player.round_number == 5 or player.round_number == 10 %}
-                        <p style="font-size: 1em; margin-top: 20px;">
-                            {% if player.round_number == 5 %}
-                                You are in round <strong>5</strong>.
-                            {% else %}
-                                You are in round <strong>10</strong> (the end round).
-                            {% endif %}
-                        </p>
+                    <ul style="list-style-type: none; padding: 0; font-size: 1.1em; color: #7F8C8D;">
+                        {% for player in group.get_players %}
+                            <li><strong>Player {{ player.id_in_group }}:</strong> <span style="color: #2980B9;">{{ player.participant.payoff }}</span></li>
+                        {% endfor %}
+                    </ul>
+                    <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
+                    {% if advice_type == 'AI' %}
+                        <p style="color: #16A085; font-size: 1.2em;">AI advice: Remember to cooperate for better outcomes!</p>
+                    {% elif advice_type == 'expert' %}
+                        <p style="color: #E67E22; font-size: 1.2em;">Expert advice: Strategic thinking can maximize your payoff!</p>
                     {% endif %}
 
-                    <!-- Next button at the bottom -->
-                    <div style="margin-top: 20px; text-align:center;">
-                        <button class="btn btn-secondary" type="button">Next</button>
-                    </div>
-
+                    <!-- Show the next button only for round 2 -->
+                    {% if player.round_number == 2 %}
+                        <div class="next-button-container">
+                            {{ next_button }}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -155,22 +59,28 @@
             margin-bottom: 20px;
         }
 
-        .summary-table {
-            width: 100%;
-            margin: 0 auto;
-            border-collapse: collapse;
+        .next-button-container {
+            margin-top: 40px;
         }
-        .summary-table thead th {
-            border-bottom: 2px solid #BDC3C7;
-            padding-bottom: 8px;
+
+        .next-button-container button {
+            background-color: #2980B9;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        .summary-table tbody td {
-            padding: 10px 0;
-            border-bottom: 1px solid #ecf0f1;
+
+        .next-button-container button:hover {
+            background-color: #1F6B8A;
         }
-        .summary-table td,
-        .summary-table th {
-            text-align: center;
+
+        .prize {
+            font-weight: bold;
+            font-size: 1.1em;
         }
     </style>
 {% endblock %}

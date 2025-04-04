@@ -1,6 +1,6 @@
 from os import environ
 
-
+'''Three types of advice: none, expert, AI'''
 SESSION_CONFIGS = [
     # dict(
     #     name='guess_two_thirds',
@@ -12,11 +12,23 @@ SESSION_CONFIGS = [
     #     name='survey', app_sequence=['survey', 'payment_info'], num_demo_participants=1
     # ),
     dict(
-        display_name="cooperation_game",
-        name='cooperation_game',
+        name='cooperation_game_none',
         app_sequence=['cooperation_game'],
-        num_demo_participants=3
-    )
+        num_demo_participants=3,
+        advice_type = 1,
+    ),
+    dict(
+        name='cooperation_game_expert',
+        app_sequence=['cooperation_game'],
+        num_demo_participants=3,
+        advice_type = 2,
+    ),
+    dict(
+        name='cooperation_game_AI',
+        app_sequence=['cooperation_game'],
+        num_demo_participants=3,
+        advice_type = 3,
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -28,7 +40,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = []
+PARTICIPANT_FIELDS = ['advice_type']
 SESSION_FIELDS = []
 
 # ISO-639 code
