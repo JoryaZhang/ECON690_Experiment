@@ -85,8 +85,8 @@
   <!-- Section 4 -->
   <div class="instruction-box hidden" id="section4">
     <h3>Decision in Each Round and Possible Outcomes</h3><hr>
-    <p>In each round, if you choose to quit: only when you are the <strong>first quitter<strong> (the player with <strong>smallest<strong> position number), you can receive <strong>k dollars</strong>. Other players earn 0, regadless of their own choices.</p>
-    <p>If you choose to cooperate, only when all the players choose to cooperate: you and each player will earn <strong>t dollars (t>k)</strong>.</p>
+    <p>In each round, if you choose to quit: only when you are the <strong>first quitter</strong> (the player with <strong>smallest</strong> position number), you can receive <strong>3 dollars</strong>. Other players earn 0, regadless of their own choices.</p>
+    <p>If you choose to cooperate, only when all the players choose to cooperate: you and each player will earn <strong>6 dollars</strong>.</p>
     <p>You will not be informed of your exact earnings at the end of each round. However, as mentioned before, after the first 5 rounds, you can receive the all-cooperation round success rate of previous 5 rounds and maybe some additional information, which could help guide your decisions in the remaining rounds.</p>
     <div class="button-container">
       <button type="button" class="nav-button" onclick="changeSection('section5', 'section4')">Back</button>
