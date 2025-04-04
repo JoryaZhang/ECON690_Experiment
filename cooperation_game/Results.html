@@ -20,12 +20,7 @@
                             <li><strong>Player {{ player.id_in_group }}:</strong> <span style="color: #2980B9;">{{ player.participant.payoff }}</span></li>
                         {% endfor %}
                     </ul>
-                    <hr style="border-color: #BDC3C7; border-width: 1px; margin: 30px 0;">
-                    {% if advice_type == 'AI' %}
-                        <p style="color: #16A085; font-size: 1.2em;">AI advice: Remember to cooperate for better outcomes!</p>
-                    {% elif advice_type == 'expert' %}
-                        <p style="color: #E67E22; font-size: 1.2em;">Expert advice: Strategic thinking can maximize your payoff!</p>
-                    {% endif %}
+
 
                     <!-- Show the next button only for round 2 -->
                     {% if player.round_number == 2 %}

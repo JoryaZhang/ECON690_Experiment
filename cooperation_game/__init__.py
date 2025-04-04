@@ -15,7 +15,7 @@ class C(BaseConstants):
     ##!!!!! Reduce players and round is for testing, change it back!!!!###
     NAME_IN_URL = 'position_shuffle'
     PLAYERS_PER_GROUP = 3 ##!!!!! 3 is for testing change it back###
-    NUM_ROUNDS = 2 ##!!!!! 2 is for testing change it back###
+    NUM_ROUNDS = 4 ##!!!!! 2 is for testing change it back###
     FST_ROLE = '1st'
     SCD_ROLE = '2nd'
     TRD_ROLE = '3rd'
@@ -60,14 +60,14 @@ class Player(BasePlayer):
 # set the round number as 4 for now, change it to 10 at last
 def creating_session(subsession):
     #change the criterion to 5
-    advice_type = subsession.session.config['advice_type']
-    player = subsession.get_players()
-    if advice_type == 1:
-        player.participant.vars['advice_type'] = 'None'
-    elif advice_type == 2:
-        player.participant.vars['advice_type'] = 'Expert'
-    elif advice_type == 3:
-        player.participant.vars['advice_type'] = 'AI'
+    # advice_type = subsession.session.config['advice_type']
+    # player = subsession.get_players()
+    # if advice_type == 1:
+    #     player.participant.vars['advice_type'] = 'None'
+    # elif advice_type == 2:
+    #     player.participant.vars['advice_type'] = 'Expert'
+    # elif advice_type == 3:
+    #     player.participant.vars['advice_type'] = 'AI'
     if subsession.round_number <= 2:
         subsession.group_randomly()
     if subsession.round_number >2:
@@ -172,12 +172,12 @@ class Results(Page):
     def vars_for_template(self):
         # Example: reset everyone's payoff to 0 after round 5
         # (Remove if you don't want to reset.)
-        advice_type = self.participant.vars['advice_type']
+        # advice_type = self.participant.vars['advice_type']
         if self.round_number == 3:
             for p in self.group.get_players():
                 p.participant.payoff = cu(0)
         return {
-            'advice_type': advice_type,
+            # 'advice_type': advice_type,
             'total_payoff': self.participant.payoff
         }
 
