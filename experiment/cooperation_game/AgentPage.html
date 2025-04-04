@@ -12,21 +12,14 @@
                 <p><strong>Your Role: </strong><span style="color: #2980B9; font-size: 1.2em;">{{ player.role }}</span></p>
                 <p>You are the <strong style="color: #2980B9;">{{ player.role }}</strong> player in the sequence.</p>
                 <hr style="border-color: #BDC3C7;">
-
-                <!-- Show AI advice only in Round 5 -->
-                {% if player.round_number == 3 %}  #Here for test, 3
+                {% if player.round_number > 5 %} 
                 <div style="background-color: #f2fbff; border: 2px solid #2980B9; border-radius: 8px; padding: 15px; margin-top: 20px;">
-                    <p style="color: #2980B9; font-weight: bold; margin-bottom: 6px;">AI Advice (Round 5):</p>
-                    <p style="color: #000000; margin: 0;">
-                        Recommendation: <strong>Cooperate</strong>.
-                        
-                        Choose to cooperate, as this is the only way for everyone in the group to potentially earn the highest payout of $6.
-                        While quitting might secure $3 if you are the first, it prevents the best outcome and often yields $0,
-                        making cooperation the strategy with higher potential earnings over the long run.  
-                    </p>
-                </div>
-                {% endif %}
-                
+                <p style="color: #2980B9; font-weight: bold; margin-bottom: 6px;">AI Advice (Round 5):</p>
+                <p style="color: #000000; margin: 0;">
+                    Recommendation: <strong>Cooperate</strong>.
+                </p>
+            </div>
+            {% endif %}
                 <div class="form-section">
                     <h3 style="color: #2C3E50;">Choose Your Option:</h3>
                     <p><strong>Prize Information:</strong></p>

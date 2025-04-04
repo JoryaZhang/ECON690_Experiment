@@ -14,8 +14,8 @@ are shuffled every round, and players are informed of their position.
 class C(BaseConstants):
     ##!!!!! Reduce players and round is for testing, change it back!!!!###
     NAME_IN_URL = 'position_shuffle'
-    PLAYERS_PER_GROUP = 3 ##!!!!! 3 is for testing change it back###
-    NUM_ROUNDS = 4 ##!!!!! 2 is for testing change it back###
+    PLAYERS_PER_GROUP = 5 ##!!!!! 3 is for testing change it back###
+    NUM_ROUNDS = 10 ##!!!!! 2 is for testing change it back###
     FST_ROLE = '1st'
     SCD_ROLE = '2nd'
     TRD_ROLE = '3rd'
@@ -23,21 +23,12 @@ class C(BaseConstants):
     FIF_ROLE = '5th'
 
     # Payoff settings
-    PAYOFF_S1 = cu(2)   # Prize if the first "No" in rounds 1–5
-    PAYOFF_S2 = cu(4)   # Prize if the first "No" in rounds 6–10
+    PAYOFF_S1 = cu(3)   # Prize if the first "No" in rounds 1–5
     PAYOFF_GOOD = cu(6) # If everyone cooperates
     PAYOFF_LOSE = cu(0) # Others if someone quits
 
 class Subsession(BaseSubsession):
-    """
-    Random grouping for the first 5 rounds.
-    For rounds 6–10, copy the group matrix from 5 rounds ago.
-    """
-    def creating_session(self):
-        if self.round_number <= 5:
-            self.group_randomly()
-        else:
-            self.group_like_round(self.round_number - 5)
+    pass
 
 class Group(BaseGroup):
     # def shuffle_role(group):
@@ -87,20 +78,15 @@ class Player(BasePlayer):
 # This function random the positions of player each round and store the group matrix
 # set the round number as 4 for now, change it to 10 at last
 def creating_session(subsession):
-    #change the criterion to 5
-    # advice_type = subsession.session.config['advice_type']
-    # player = subsession.get_players()
-    # if advice_type == 1:
-    #     player.participant.vars['advice_type'] = 'None'
-    # elif advice_type == 2:
-    #     player.participant.vars['advice_type'] = 'Expert'
-    # elif advice_type == 3:
-    #     player.participant.vars['advice_type'] = 'AI'
-    if subsession.round_number <= 2:
+    """
+    Random grouping for the first 5 rounds.
+    For rounds 6–10, copy the group matrix from 5 rounds ago.
+    """
+    if subsession.round_number <= 5:
         subsession.group_randomly()
-    if subsession.round_number >2:
+    if subsession.round_number >5:
         #change to '-5'
-        subsession.group_like_round(subsession.round_number-2)
+        subsession.group_like_round(subsession.round_number-5)
 
 
 # def shuffle_role(group: Group):
@@ -149,20 +135,13 @@ class AgentPage(Page):
     form_model = 'player'
     form_fields = ['cooperate']  
     def vars_for_template(player):
-        # Show advice in round 5(For test, 3!!)
-        show_advice = (self.round_number == 2)
         
         # Pass prize information, the cooperation question, and roles
-        if player.round_number<=3 or (player.round_number >5 and player.round_number <=8): 
-            prize = C.PAYOFF_S1
-        elif (player.round_number > 3 and player.round_number <= 5) or (player.round_number > 8):
-            prize = C.PAYOFF_S2
         return {
-                'prize_if_no': prize,
+                'prize_if_no': C.PAYOFF_S1,
                 'prize_if_yes': C.PAYOFF_GOOD,
                 'role': player.role,
                 'cooperation_question': "Do you want to cooperate?"  # Add the cooperation question here
-                'show_advice': show_advice,
             }
         
     
@@ -197,13 +176,13 @@ class Results(Page):
     form_model = 'player'
     def is_displayed(self):
 
-        return self.round_number == 2 or self.round_number == C.NUM_ROUNDS
+        return self.round_number == 5 or self.round_number == C.NUM_ROUNDS
 
     def vars_for_template(self):
         # Example: reset everyone's payoff to 0 after round 5
         # (Remove if you don't want to reset.)
         # advice_type = self.participant.vars['advice_type']
-        if self.round_number == 3:
+        if self.round_number == 6:
             for p in self.group.get_players():
                 p.participant.payoff = cu(0)
         return {

@@ -20,7 +20,19 @@
                             <li><strong>Player {{ player.id_in_group }}:</strong> <span style="color: #2980B9;">{{ player.participant.payoff }}</span></li>
                         {% endfor %}
                     </ul>
-
+                    <!-- Show AI advice only in Round 5 -->
+                    {% if player.round_number == 5 %}  #Here for test, 3
+                    <div style="background-color: #f2fbff; border: 2px solid #2980B9; border-radius: 8px; padding: 15px; margin-top: 20px;">
+                    <p style="color: #2980B9; font-weight: bold; margin-bottom: 6px;">AI Advice (Round 5):</p>
+                    <p style="color: #000000; margin: 0;">
+                        Recommendation: <strong>Cooperate</strong>.
+                        
+                        Choose to cooperate, as this is the only way for everyone in the group to potentially earn the highest payout of $6.
+                        While quitting might secure $3 if you are the first, it prevents the best outcome and often yields $0,
+                        making cooperation the strategy with higher potential earnings over the long run.  
+                    </p>
+                </div>
+                {% endif %}
 
                     <!-- Show the next button only for round 2 -->
                         <div class="next-button-container">
