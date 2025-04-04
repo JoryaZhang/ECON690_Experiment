@@ -36,3 +36,12 @@ To-do:
 1. Introduction part: explain the rule carefully, highlight. (Finish the instrunction structure code alreadly)
 2. Embellish the interface.
 3. Design Result page (Advice, whether to show others' payoff, show cooperation rate etc.)
+
+### April 4
+To-do:
+1. keep the advice for the 5 rounds in the second phase
+2. change the highlight of intruduction
+3. add some quizzes to test understanding
+4. keep the length of the advice (super similar to each other)
+5. add simple questions to gather demographic information in the end
+
