@@ -89,8 +89,8 @@
     <p>If you choose to cooperate, only when all the players choose to cooperate: you and each player will earn <strong>6 dollars</strong> equally.</p>
     <p>You will <strong>not</strong> be informed of your exact earnings at the end of each round. However, as mentioned before, after the first 5 rounds, you will receive the number of successful all-cooperation round in previous 5 rounds (e.g., 3/5) and maybe some additional information, which could help guide your decisions in the remaining rounds.</p>
     <div class="button-container">
-      <button type="button" class="nav-button" onclick="changeSection('section5', 'section4')">Back</button>
-      <button type="button" class="nav-button" onclick="changeSection('section5', 'section6')">Next</button>
+      <button type="button" class="nav-button" onclick="changeSection('section4', 'section3')">Back</button>
+      <button type="button" class="nav-button" onclick="changeSection('section4', 'section5')">Next</button>
     </div>
   </div>
 
@@ -101,7 +101,7 @@
     <p>Please read these instructions carefully and use them to guide your choices.</p>
     <p>If you have questions, please ask the experimenter before the game starts.</p>
     <div class="button-container">
-      <button type="button" class="nav-button" onclick="changeSection('section6', 'section5')">Back</button>
+      <button type="button" class="nav-button" onclick="changeSection('section5', 'section4')">Back</button>
       <button type="submit" class="final-button">Start Study</button>
     </div>
   </div>
