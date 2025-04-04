@@ -75,7 +75,7 @@
   <div class="instruction-box hidden" id="section3">
     <h3>Number of Rounds</h3><hr>
     <p>The game will be played for a total of <strong>10</strong> rounds.</p>
-    <p>o	After the first 5 rounds, there may or may not be additional information provided to help you make decisions for your larger earnings. You may choose whether to take advantage of the provided information or continue with your initial strategy for the remaining 5 rounds.</p>
+    <p>o	After the first 5 rounds, you will know the all-cooperation round success rate of previous 5 rounds, moreover, there may or may not be additional information provided to help you make decisions for your larger earnings. You may choose whether to take advantage of the provided information or continue with your initial strategy for the remaining 5 rounds.</p>
     <div class="button-container">
       <button type="button" class="nav-button" onclick="changeSection('section3', 'section2')">Back</button>
       <button type="button" class="nav-button" onclick="changeSection('section3', 'section4')">Next</button>
@@ -85,12 +85,12 @@
   <!-- Section 4 -->
   <div class="instruction-box hidden" id="section4">
     <h3>Decision in Each Round and Possible Outcomes</h3><hr>
-    <p><strong>In each round, if you choose to quit:</strong> only when you are the <strong>first quitter<strong> (the player with <strong>smallest<strong> position number), you can receive <strong>k dollars</strong>. Other players earn 0, regadless of their own choices.</p>
-    <p><strong>If you choose to cooperate, only when all the players choose to cooperate:</strong> you and each player will earn <strong>t dollars (t>k)</strong>.</p>
-    <p>You will not be informed of your exact earnings at the end of each round. However, after the first 5 rounds, you may receive the all-cooperation round success rate of previous 5 rounds as the additional information, which could help guide your decisions in the remaining rounds.</p>
+    <p>In each round, if you choose to quit: only when you are the <strong>first quitter<strong> (the player with <strong>smallest<strong> position number), you can receive <strong>k dollars</strong>. Other players earn 0, regadless of their own choices.</p>
+    <p>If you choose to cooperate, only when all the players choose to cooperate: you and each player will earn <strong>t dollars (t>k)</strong>.</p>
+    <p>You will not be informed of your exact earnings at the end of each round. However, as mentioned before, after the first 5 rounds, you can receive the all-cooperation round success rate of previous 5 rounds and maybe some additional information, which could help guide your decisions in the remaining rounds.</p>
     <div class="button-container">
-      <button type="button" class="nav-button" onclick="changeSection('section4', 'section3')">Back</button>
-      <button type="button" class="nav-button" onclick="changeSection('section4', 'section5')">Next</button>
+      <button type="button" class="nav-button" onclick="changeSection('section5', 'section4')">Back</button>
+      <button type="button" class="nav-button" onclick="changeSection('section5', 'section6')">Next</button>
     </div>
   </div>
 
@@ -101,7 +101,7 @@
     <p>Please read these instructions carefully and use them to guide your choices.</p>
     <p>If you have questions, ask the experimenter before the game starts.</p>
     <div class="button-container">
-      <button type="button" class="nav-button" onclick="changeSection('section5', 'section4')">Back</button>
+      <button type="button" class="nav-button" onclick="changeSection('section6', 'section5')">Back</button>
       <button type="submit" class="final-button">Start Study</button>
     </div>
   </div>
