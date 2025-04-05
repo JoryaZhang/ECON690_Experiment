@@ -10,7 +10,7 @@
     <!-- Section 1 -->
     <div class="instruction-box" id="section1">
         <h3>1. Overview</h3>
-        <p>You will participate in a <strong>Sequential Cooperation Game</strong> with a total of <strong>n</strong> players (including yourself).</p>
+        <p>You will participate in a <strong>Sequential Cooperation Game</strong> with a total of <strong>5</strong> players (including yourself).</p>
         <p>The group of <strong>n</strong> players will remain fixed throughout the experiment.</p>
         <div class="button-container">
           <button type="button" class="nav-btn" onclick="changeSection('section1', 'section2')">Next</button>
@@ -20,7 +20,7 @@
     <!-- Section 2 -->
     <div class="instruction-box hidden" id="section2">
         <h3>2. Position Assignment</h3>
-        <p>At the start of each round, players will be randomly assigned a position from <strong>1 to n</strong>.</p>
+        <p>At the start of each round, players will be randomly assigned a position from <strong>1 to 5</strong>.</p>
         <p>Your position determines the order in which your decision is considered. For example:</p>
         <ul>
             <li>If you are in position 1, your decision comes first.</li>
@@ -51,7 +51,7 @@
         <h3>4. Decision and Payoff Rules</h3>
         <p>In each round, you must choose to either <strong>cooperate</strong> or <strong>quit</strong>.</p>
         <ul>
-            <li>If you quit and are the <strong>first quitter</strong> (i.e., the lowest position among quitters), you will earn <strong>$3</strong>. All other players earn <strong>$0</strong> regardless of their choice.</li>
+            <li>If you quit and are the <strong>first quitter</strong> (i.e., the smallest position number among quitters), you will earn <strong>$3</strong>. All other players earn <strong>$0</strong> regardless of their choices.</li>
             <li>If <strong>all players cooperate</strong>, each player earns <strong>$6</strong>.</li>
         </ul>
         <p>Note: You will not see your earnings immediately after each round. However, after round 5, you will be shown the number of fully cooperative rounds so far (e.g., <em>2/5</em>).</p>
@@ -69,7 +69,7 @@
             <li>A fixed payment of <strong>$5</strong></li>
             <li>+ the sum of payoffs from <strong>2 randomly selected rounds</strong></li>
         </ul>
-        <p>Please read the instructions carefully. If you have any questions, feel free to ask the experimenter before continuing.</p>
+        <p>Please read the instructions carefully. If you have any questions, please feel free to ask the experimenter before continuing.</p>
         <div class="button-container">
           <button type="button" class="nav-button" onclick="changeSection('section5', 'section4')">Back</button>
           <button type="submit" class="final-button">Start Study</button>
