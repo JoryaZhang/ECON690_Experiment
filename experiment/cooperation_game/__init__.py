@@ -98,16 +98,6 @@ def set_payoffs(group: Group):
     first_no_player = None
     for player in players:
         if player.cooperate is False:
-            # if player.round_number == 1:
-            #     player.success1 = 1
-            # elif player.round_number == 2:
-            #     player.success2 = 1
-            # elif player.round_number == 3:
-            #     player.success3 = 1
-            # elif player.round_number == 4:
-            #     player.success4 = 1
-            # elif player.round_number == 5:
-            #     player.success5 = 1
             first_no_player = player
             break  # Stop at the first player who chooses "No"
     
@@ -187,7 +177,10 @@ class Results(Page):
         # Calculate the number of successful cooperation rounds
         group = self.group
         lowest = lowest_payoff(group)
-        round = int(lowest / C.PAYOFF_GOOD)
+        if self.round_number == 5:
+            round = int(lowest // C.PAYOFF_GOOD)
+        else:
+            round = int(lowest // (C.PAYOFF_GOOD *2))
         return {
             'succeed': round,
             'total_payoff': self.participant.payoff

@@ -14,7 +14,7 @@ SESSION_CONFIGS = [
     dict(
         name='cooperation_game_none',
         app_sequence=['cooperation_game'],
-        num_demo_participants=5,
+        num_demo_participants=2,
         advice_type = 1,
     ),
     dict(
