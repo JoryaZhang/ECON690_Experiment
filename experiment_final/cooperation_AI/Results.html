@@ -1,0 +1,138 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+<h2 class="text-center" style="margin-top: 20px;">Results Summary</h2>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="result-card">
+        <h3>Your Total Payoff</h3>
+        <p class="subtitle">Your total accumulated payoff is:</p>
+        <p class="total-payoff">{{ total_payoff }}</p>
+
+        <hr class="divider">
+
+        <div class="succeed-section">
+            <h4>Total Cooperation Rounds</h4>
+            <p>
+                In the <strong>last 5 rounds</strong>, your group successfully cooperated in:<br>
+                <span class="succeed-count">{{ succeed }}</span> rounds.
+            </p>
+        </div>
+
+        {% if player.round_number == 5 %}
+        <div class="ai-advice-box">
+            <p class="ai-label">AI Advice:</p>
+            <p class="ai-content">
+                <strong>Recommendation: Cooperate</strong><br><br>
+                Choosing to cooperate is the only path to achieving the highest possible group earnings of <strong>$6</strong> each.
+                While quitting might guarantee <strong>$3</strong> if you're first, it often results in <strong>$0</strong> for others and may backfire.
+                Cooperation has the highest expected value over time.
+            </p>
+        </div>
+        {% endif %}
+
+        <div class="next-button-container">
+            {{ next_button }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .result-card {
+        background-color: #fefefe;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+        text-align: center;
+    }
+
+    .result-card h3 {
+        font-size: 26px;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        font-size: 18px;
+        color: #2980B9;
+        margin-bottom: 10px;
+    }
+
+    .total-payoff {
+        font-size: 32px;
+        color: #2980B9;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .divider {
+        border-top: 1px solid #ddd;
+        margin: 30px 0;
+    }
+
+    .succeed-section h4 {
+        font-size: 20px;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .succeed-count {
+        font-size: 24px;
+        color: #d26e4e;
+        font-weight: bold;
+        display: inline-block;
+        margin: 10px 0;
+    }
+
+    .ai-advice-box {
+        background-color: #f2fbff;
+        border: 2px solid #2980B9;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .ai-label {
+        color: #2980B9;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .ai-content {
+        color: #333;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .next-button-container {
+        margin-top: 35px;
+    }
+
+    .next-button-container button {
+        background-color: #2980B9;
+        color: white;
+        padding: 14px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .next-button-container button:hover {
+        background-color: #1f6b8a;
+    }
+</style>
+{% endblock %}

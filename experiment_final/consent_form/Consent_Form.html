@@ -1,0 +1,50 @@
+{{ block title }}<center><p>Consent Form</p> <p style="color:#ababab; font-size:20px"></p></center>{{ endblock }}
+{{ block content }}
+
+<style>
+    .pn_buttons {
+        display: flex;
+        justify-content: center; /* centers the buttons horizontally */
+        gap: 10px; /* optional spacing between buttons */
+    }
+</style>
+
+<center>
+    <div class="questionCard" style="display: block;">
+        Principal investigator: Rosemary Su, Yuxuan Ouyang, Zhuoya Zhang, Nayeon Kim- Duke Univerity, Department of Economics<br><br>
+
+        <b>Key information</b><br>
+        Your informed consent is being sought for research. Participation in the research is voluntary. The purpose of the research is to help social scientists better understand how people process information. The expected duration of this session is 30 minutes. You will be asked to make decisions for which you will be paid. At the beginning of the session, you will receive detailed and accurate instructions describing how payments will depend on decisions made by you. The reasonably foreseeable risks or discomforts as a result of participation: there are no known risks associated with participating in this study beyond those of everyday life.
+        The benefits to you or to others, e.g., society that may reasonably be expected from the research: there are no benefits to you other than the monetary compensation you will receive and the opportunity to learn about experimental economics. The research will help social scientists understand how individuals collect information, which in turn, will feed into the design of policies in various contexts.<br><br>
+
+        <b>Additional information</b><br>
+
+        <b>Confidentiality - </b>
+        We do not have access to any identifiable information. All records from this session will be kept confidential. Your responses will be kept private. Research records will be stored securely in a locked cabinet and/or on password protected computers. The research team will be the only party that will have access to your data.<br>
+        <b>Compensation - </b>
+        Your participation will be compensated. You will receive $5 for completing the session. In addition, you have chance of receiving a bonus payment of $12. Whether you receive the bonus payment will depend on chance and the actions you take during the session.<br>
+        <b>Contact - </b>
+<!--        Who to contact with questions: Marina Agranov, magranov@hss.caltech.edu, or Pellumb Reshidi pellumb.reshidi@duke.edu. If you have questions regarding your rights as a research subject, or if problems arise which you do not feel you can discuss with the researchers, please contact the Committee for the Protection of Human Subjects - Institutional Review Board at (626) 395-8448 or email at irb@caltech.edu<br><br>-->
+        Who to contact with questions: Rosemary Su, yuqi.su@duke.edu; Nayeon Kim, nayeon.kim@duke.edu; Zhuoya Zhang, zhuoya.zhang@duke.edu; Yuxuan Ouyang, yo53@duke.edu. If you have questions regarding your rights as a research subject, or if problems arise which you do not feel you can discuss with the researchers, please contact the Committee for the Protection of Human Subjects - Institutional Review Board at (626) 395-8448 or email at irb@caltech.edu.<br><br>
+
+        <b>Summary</b><br>
+        I understand the information that was presented and that:<br>
+        My participation is voluntary.<br>
+        Refusal to participate will involve no penalty.<br>
+        I may discontinue participation at any time.<br>
+        I hereby give my consent to be the subject of the research.<br>
+
+
+
+    </div>
+</center>
+
+<center>
+    <div class="pn_buttons">
+        <div><button class="button" name="consent" value="True">I Consent</button></div>
+        <div></div>
+        <div><button class="button" name="consent" value="False">Exit Session</button></div>
+    </div>
+</center>
+
+{{ endblock }}

@@ -1,0 +1,57 @@
+{{ block title }}
+  Demographic Survey
+{{ endblock }}
+
+{{ block content }}
+<div class="instruction-box">
+  <h2 style="text-align: center;">Demographic Questionnaire</h2>
+  <p style="text-align: center;">Please answer the following questions before proceeding.</p>
+  <hr>
+
+  <form method="post">
+    <div style="margin-bottom: 25px;">
+      <label><strong>1. What is your age?</strong></label>
+      {{ form.age }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>2. What is your gender?</strong></label>
+      {{ form.gender }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>3. What country are you from?</strong></label>
+      {{ form.country }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>4. How familiar are you with Artificial Intelligence (AI)?</strong></label>
+      {{ form.familiarity_ai }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>5. What is your highest level of education?</strong></label>
+      {{ form.education_level }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>6. What is your field of study or work?</strong></label>
+      {{ form.field_of_study }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>7. What is your English proficiency?</strong></label>
+      {{ form.english_proficiency }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>8. Have you participated in online experiments before?</strong></label>
+      {{ form.prior_experiment_experience }}
+    </div>
+
+    <div style="text-align: center;">
+      <button type="submit" class="btn btn-primary">Continue</button>
+    </div>
+  </form>
+</div>
+{{ endblock }}

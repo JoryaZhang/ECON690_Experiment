@@ -1,0 +1,81 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+<h2 class="text-center" style="margin-top: 20px;">Final Earnings</h2>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="final-results-card">
+        <h3 class="thank-you">Thank You for Participating!</h3>
+
+        <p class="section-text">You will receive a fixed payment of <strong>${{ fixed_amount }}</strong>.</p>
+
+        <p class="section-text">We randomly selected two rounds to determine your bonus:</p>
+        <ul class="bonus-list">
+            <li>Round {{ round1_number }}: <strong>${{ bonus1 }}</strong></li>
+            <li>Round {{ round2_number }}: <strong>${{ bonus2 }}</strong></li>
+        </ul>
+
+        <p class="section-text">Your total bonus from selected rounds is <strong>${{ total_bonus }}</strong>.</p>
+        <p class="total-payment">Total Payment: <strong>${{ total_payoff }}</strong></p>
+
+        <p class="closing-note">You may now close the window or wait to be redirected.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .final-results-card {
+        background-color: #fefefe;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+        text-align: center;
+    }
+
+    .thank-you {
+        font-size: 26px;
+        color: #2c3e50;
+        margin-bottom: 25px;
+    }
+
+    .section-text {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .bonus-list {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .bonus-list li {
+        font-size: 17px;
+        color: #2980B9;
+        margin-bottom: 8px;
+    }
+
+    .total-payment {
+        font-size: 22px;
+        font-weight: bold;
+        color: #27ae60;
+        margin-top: 20px;
+    }
+
+    .closing-note {
+        margin-top: 30px;
+        font-size: 15px;
+        color: #555;
+    }
+</style>
+{% endblock %}

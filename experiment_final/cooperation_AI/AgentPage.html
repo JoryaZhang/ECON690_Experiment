@@ -1,0 +1,165 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+<h2 class="text-center" style="margin-top: 20px;">Your Choice</h2>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="choice-card">
+        <h3>Round {{ player.round_number }}</h3>
+        <p><strong>Your Role:</strong> <span class="highlight">{{ player.role }}</span></p>
+        <p>You are the <strong>{{ player.role }}</strong> player in the decision sequence.</p>
+        <hr>
+
+        {% if player.round_number > 5 %}
+        <div class="ai-advice-box">
+            <p class="ai-label">AI Advice:</p>
+            <p class="ai-text">
+                <strong>Recommendation: Cooperate (All other group members see this)</strong><br>
+                Choosing to cooperate allows the group to reach the maximum earning of $6 per player.
+                Quitting may secure $3 if you're the first, but it's a gamble — others will earn $0 and the group loses potential earnings.
+            </p>
+        </div>
+        {% endif %}
+
+        <div class="form-section">
+            <h4>Choose Your Option:</h4>
+            <div class="reward-info text-start">
+                <p><strong>If you choose <span class="quit-label">"Quit"</span>:</strong></p>
+                <ul>
+                    <li>You earn <strong class="quit-amount">${{ prize_if_no }}</strong></li>
+                    <li><em>Only if no other players before you have already quit.</em></li>
+                </ul>
+
+                <p><strong>If you choose <span class="coop-label">"Yes"</span>:</strong></p>
+                <ul>
+                    <li>You earn <strong class="coop-amount">${{ prize_if_yes }}</strong></li>
+                    <li><em>Only if all players in your group choose "Yes".</em></li>
+                </ul>
+            </div>
+
+            <p class="question">{{ cooperation_question }}</p>
+
+            <form method="post">
+                <div class="btn-group" role="group">
+                    <button type="submit" name="cooperate" value="True" class="btn btn-outline-primary btn-lg">Yes</button>
+                    <button type="submit" name="cooperate" value="False" class="btn btn-outline-danger btn-lg">Quit</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+
+    .choice-card {
+        background-color: #fff;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 26px;
+        margin-bottom: 10px;
+        color: #2c3e50;
+    }
+
+    .highlight {
+        font-size: 1.2em;
+        color: #2980B9;
+    }
+
+    hr {
+        margin: 20px 0;
+        border-top: 1px solid #ddd;
+    }
+
+    .ai-advice-box {
+        background-color: #f2fbff;
+        border: 2px solid #2980B9;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .ai-label {
+        color: #2980B9;
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .ai-text {
+        color: #333;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .form-section h4 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #2c3e50;
+    }
+
+    .prize-info {
+        text-align: left;
+        font-size: 16px;
+        line-height: 1.6;
+        padding-left: 0;
+        list-style-type: none;
+        margin-bottom: 20px;
+    }
+
+    .prize-info .quit-amount {
+        color: #d26e4e;
+        font-weight: bold;
+    }
+
+    .prize-info .coop-amount {
+        color: #3498DB;
+        font-weight: bold;
+    }
+
+    .question {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #2C3E50;
+    }
+
+    .btn-group {
+        margin-bottom: 25px;
+    }
+
+    .btn-group button {
+        margin: 0 15px;
+        border-radius: 8px;
+        padding: 12px 25px;
+        font-size: 18px;
+    }
+
+    .btn-outline-danger {
+        border-color: #d26e4e;
+        color: #d26e4e;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: #d26e4e;
+        color: white;
+    }
+
+</style>
+{% endblock %}
