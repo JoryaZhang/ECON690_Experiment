@@ -12,7 +12,6 @@ are shuffled every round, and players are informed of their position.
 #####################
 
 class C(BaseConstants):
-    ##!!!!! Reduce players and round is for testing, change it back!!!!###
     NAME_IN_URL = 'cooperation_none'
     PLAYERS_PER_GROUP = 5
     NUM_ROUNDS = 10
@@ -111,7 +110,6 @@ class Player(BasePlayer):
 # FUNCTIONS
 
 # This function random the positions of player each round and store the group matrix
-# set the round number as 4 for now, change it to 10 at last
 def creating_session(subsession):
     """
     Random grouping for the first 5 rounds.
@@ -121,12 +119,10 @@ def creating_session(subsession):
     if subsession.round_number <= 5:
         subsession.group_randomly()
     if subsession.round_number >5:
-        #change to '-5'
+
         subsession.group_like_round(subsession.round_number-5)
 
 
-# def shuffle_role(group: Group):
-#     group.get_players()
 
 def set_payoffs(group: Group):
     players = group.get_players()
@@ -166,7 +162,6 @@ class Introduction(Page):
     """
     form_model = 'player'
     def is_displayed(player):
-        # Show results only on round 2 or the final round
         return player.round_number == 1
 
 class AgentPage(Page):
@@ -208,7 +203,6 @@ class Results(Page):
         return self.round_number == 5 or self.round_number == C.NUM_ROUNDS
 
     def vars_for_template(self):
-        # self.participant.cooperate_count = 4
         # Calculate the number of successful cooperation rounds
         group = self.group
         avg = avg_payoff(group)
@@ -224,7 +218,6 @@ class Intermediate(Page):
         return player.round_number == 5
 
     def before_next_page(player, timeout_happened):
-        # Reset participant's payoff to 0 after round 5
         if player.round_number == 5:
             player.participant.payoff = cu(0)
 
