@@ -116,6 +116,9 @@ def set_payoffs(group: Group):
                 p.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
 
 def avg_payoff(group: Group):
+    """
+    Calculate the average payoff for the group, for the purpose of displaying cooperation rounds.
+    """
     players = group.get_players()
     
     # Find the player(s) with the highest total payoff
@@ -132,7 +135,6 @@ class Introduction(Page):
     """
     form_model = 'player'
     def is_displayed(player):
-        # Show results only on round 2 or the final round
         return player.round_number == 1
 
 class AgentPage(Page):
@@ -174,7 +176,7 @@ class Results(Page):
         return self.round_number == 5 or self.round_number == C.NUM_ROUNDS
 
     def vars_for_template(self):
-        # self.participant.cooperate_count = 4
+
         # Calculate the number of successful cooperation rounds
         group = self.group
         avg = avg_payoff(group)
@@ -186,11 +188,8 @@ class Results(Page):
         return {
             'succeed': round,
             'total_payoff': self.participant.payoff
-            # 'succeed': self.success1 + self.success2 + self.success3 + self.success4 + self.success5,
+           
         }
-        # Example: reset everyone's payoff to 0 after round 5
-        # (Remove if you don't want to reset.)
-        # advice_type = self.participant.vars['advice_type']
 
 class Demographic(Page):
     form_model = 'player'
