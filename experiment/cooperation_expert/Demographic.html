@@ -1,0 +1,37 @@
+{{ block title }}
+  Demographic Survey
+{{ endblock }}
+
+{{ block content }}
+<div class="instruction-box">
+  <h2 style="text-align: center;">Demographic Questionnaire</h2>
+  <p style="text-align: center;">Please answer the following questions before proceeding.</p>
+  <hr>
+
+  <form method="post">
+    <div style="margin-bottom: 25px;">
+      <label><strong>1. What is your age?</strong></label>
+      {{ form.age }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>2. What is your gender?</strong></label>
+      {{ form.gender }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>3. What country are you from?</strong></label>
+      {{ form.country }}
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label><strong>4. How familiar are you with Artificial Intelligence (AI)?</strong></label>
+      {{ form.ai_familiarity }}
+    </div>
+
+    <div style="text-align: center;">
+      <button type="submit" class="btn btn-primary">Continue</button>
+    </div>
+  </form>
+</div>
+{{ endblock }}

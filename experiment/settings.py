@@ -13,19 +13,19 @@ SESSION_CONFIGS = [
     # ),
     dict(
         name='cooperation_game_none',
-        app_sequence=['cooperation_game'],
-        num_demo_participants=2,
+        app_sequence=['cooperation_none'],
+        num_demo_participants=5,
         advice_type = 1,
     ),
     dict(
         name='cooperation_game_expert',
-        app_sequence=['cooperation_game'],
+        app_sequence=['cooperation_expert'],
         num_demo_participants=5,
         advice_type = 2,
     ),
     dict(
         name='cooperation_game_AI',
-        app_sequence=['cooperation_game'],
+        app_sequence=['cooperation_AI'],
         num_demo_participants=5,
         advice_type = 3,
     ),

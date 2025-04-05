@@ -13,9 +13,9 @@ are shuffled every round, and players are informed of their position.
 
 class C(BaseConstants):
     ##!!!!! Reduce players and round is for testing, change it back!!!!###
-    NAME_IN_URL = 'position_shuffle'
-    PLAYERS_PER_GROUP = 2 ##!!!!! 1 is for testing change it back###
-    NUM_ROUNDS = 10 ##!!!!! 2 is for testing change it back###
+    NAME_IN_URL = 'cooperation_none'
+    PLAYERS_PER_GROUP = 5 
+    NUM_ROUNDS = 10
     FST_ROLE = '1st'
     SCD_ROLE = '2nd'
     TRD_ROLE = '3rd'
@@ -115,12 +115,13 @@ def set_payoffs(group: Group):
             for p in players:
                 p.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
 
-def lowest_payoff(group: Group):
+def avg_payoff(group: Group):
     players = group.get_players()
     
     # Find the player(s) with the highest total payoff
-    min_payoff = min(player.participant.payoff for player in players)
-    return min_payoff
+    avg_payoff = sum(player.participant.payoff for player in players) / C.PLAYERS_PER_GROUP
+
+    return avg_payoff
 
 
 # PAGES
@@ -176,11 +177,11 @@ class Results(Page):
         # self.participant.cooperate_count = 4
         # Calculate the number of successful cooperation rounds
         group = self.group
-        lowest = lowest_payoff(group)
+        avg = avg_payoff(group)
         if self.round_number == 5:
-            round = int(lowest // C.PAYOFF_GOOD)
+            round = int(avg // C.PAYOFF_GOOD)
         else:
-            round = int(lowest // (C.PAYOFF_GOOD *2))
+            round = int(avg // (C.PAYOFF_GOOD *2))
         return {
             'succeed': round,
             'total_payoff': self.participant.payoff
