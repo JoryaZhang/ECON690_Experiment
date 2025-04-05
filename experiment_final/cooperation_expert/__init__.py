@@ -212,18 +212,24 @@ class Results(Page):
         # Calculate the number of successful cooperation rounds
         group = self.group
         avg = avg_payoff(group)
-        if self.round_number == 5:
-            round = int(avg // C.PAYOFF_GOOD)
-        else:
-            round = int(avg // (C.PAYOFF_GOOD *2))
+        round = int(avg // C.PAYOFF_GOOD)
         return {
             'succeed': round,
             'total_payoff': self.participant.payoff
             # 'succeed': self.success1 + self.success2 + self.success3 + self.success4 + self.success5,
         }
         # Example: reset everyone's payoff to 0 after round 5
-        # (Remove if you don't want to reset.)
-        # advice_type = self.participant.vars['advice_type']
+
+
+class Intermediate(Page):
+    form_model = 'player'
+    def is_displayed(player):
+        return player.round_number == 5
+
+    def before_next_page(player, timeout_happened):
+        # Reset participant's payoff to 0 after round 5
+        if player.round_number == 5:
+            player.participant.payoff = cu(0)
 
 class Demographic(Page):
     form_model = 'player'
@@ -269,4 +275,4 @@ class Finished(Page):
             'total_payoff': total_dollars,
         }
 
-page_sequence = [Introduction, AgentPage, ResultsWaitPage, Results, Demographic, Finished]
+page_sequence = [Introduction, AgentPage, ResultsWaitPage, Results, Intermediate, Demographic, Finished]

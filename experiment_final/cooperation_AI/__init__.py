@@ -152,8 +152,7 @@ def set_payoffs(group: Group):
 
 def avg_payoff(group: Group):
     players = group.get_players()
-    
-    # Find the player(s) with the highest total payoff
+
     avg_payoff = sum(player.participant.payoff for player in players) / C.PLAYERS_PER_GROUP
 
     return avg_payoff
@@ -213,10 +212,7 @@ class Results(Page):
         # Calculate the number of successful cooperation rounds
         group = self.group
         avg = avg_payoff(group)
-        if self.round_number == 5:
-            round = int(avg // C.PAYOFF_GOOD)
-        else:
-            round = int(avg // (C.PAYOFF_GOOD *2))
+        round = int(avg // C.PAYOFF_GOOD)
         return {
             'succeed': round,
             'total_payoff': self.participant.payoff
@@ -241,6 +237,15 @@ class Demographic(Page):
 
     def is_displayed(player):
         return player.round_number == C.NUM_ROUNDS
+class Intermediate(Page):
+    form_model = 'player'
+    def is_displayed(player):
+        return player.round_number == 5
+
+    def before_next_page(player, timeout_happened):
+        # Reset participant's payoff to 0 after round 5
+        if player.round_number == 5:
+            player.participant.payoff = cu(0)
 
 class Finished(Page):
     def is_displayed(player):
@@ -270,4 +275,4 @@ class Finished(Page):
             'total_payoff': total_dollars,
         }
 
-page_sequence = [Introduction, AgentPage, ResultsWaitPage, Results, Demographic, Finished]
+page_sequence = [Introduction, AgentPage, ResultsWaitPage, Results, Intermediate, Demographic, Finished]

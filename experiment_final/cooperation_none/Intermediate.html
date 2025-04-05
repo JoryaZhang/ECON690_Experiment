@@ -1,0 +1,50 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+    Next Phase!
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Get Ready for the Next Five Rounds!</h1>
+        <p>You will now start a new set of five rounds with the same group of people.</p>
+        <p>Your positions order will remain the same as in the previous rounds.</p>
+        <!-- oTree automatically handles the navigation, so we can use the next button -->
+        {{ next_button }}
+    </div>
+{% endblock %}
+
+{% block styles %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            margin-top: 20%;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #555;
+            font-size: 1.2em;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
