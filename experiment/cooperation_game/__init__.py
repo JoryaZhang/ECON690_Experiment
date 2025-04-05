@@ -14,13 +14,14 @@ are shuffled every round, and players are informed of their position.
 class C(BaseConstants):
     ##!!!!! Reduce players and round is for testing, change it back!!!!###
     NAME_IN_URL = 'position_shuffle'
-    PLAYERS_PER_GROUP = 5 ##!!!!! 3 is for testing change it back###
+    PLAYERS_PER_GROUP = 2 ##!!!!! 1 is for testing change it back###
     NUM_ROUNDS = 10 ##!!!!! 2 is for testing change it back###
     FST_ROLE = '1st'
     SCD_ROLE = '2nd'
     TRD_ROLE = '3rd'
     FOUR_ROLE = '4th'
     FIF_ROLE = '5th'
+
 
     # Payoff settings
     PAYOFF_S1 = cu(3)   # Prize if the first "No" in rounds 1–5
@@ -44,7 +45,6 @@ class Player(BasePlayer):
         doc="This player's decision each round",
         widget=widgets.RadioSelect,
     )
-
     # Demographic fields
     age = models.IntegerField(label="1. What is your age?", min=10, max=100)
 
@@ -72,7 +72,6 @@ class Player(BasePlayer):
         label="4. How familiar are you with Artificial Intelligence (AI)?",
         widget=widgets.RadioSelect
     )
-
 # FUNCTIONS
 
 # This function random the positions of player each round and store the group matrix
@@ -82,6 +81,7 @@ def creating_session(subsession):
     Random grouping for the first 5 rounds.
     For rounds 6–10, copy the group matrix from 5 rounds ago.
     """
+
     if subsession.round_number <= 5:
         subsession.group_randomly()
     if subsession.round_number >5:
@@ -94,11 +94,20 @@ def creating_session(subsession):
 
 def set_payoffs(group: Group):
     players = group.get_players()
-
     # Find the first player who chose "No"
     first_no_player = None
     for player in players:
         if player.cooperate is False:
+            # if player.round_number == 1:
+            #     player.success1 = 1
+            # elif player.round_number == 2:
+            #     player.success2 = 1
+            # elif player.round_number == 3:
+            #     player.success3 = 1
+            # elif player.round_number == 4:
+            #     player.success4 = 1
+            # elif player.round_number == 5:
+            #     player.success5 = 1
             first_no_player = player
             break  # Stop at the first player who chooses "No"
     
@@ -115,6 +124,13 @@ def set_payoffs(group: Group):
             # Everyone cooperates
             for p in players:
                 p.payoff = C.PAYOFF_GOOD  # Everyone gets PAYOFF_GOOD
+
+def lowest_payoff(group: Group):
+    players = group.get_players()
+    
+    # Find the player(s) with the highest total payoff
+    min_payoff = min(player.participant.payoff for player in players)
+    return min_payoff
 
 
 # PAGES
@@ -145,19 +161,6 @@ class AgentPage(Page):
             }
         
     
-# class PositionDisplay(Page):
-#     form_model = 'player'
-#     form_fields = []
-
-#     def before_next_page(self):
-#         # Shuffle positions at the start of each round
-#         set_positions(self.group)
-
-#     def vars_for_template(self):
-#         return {
-#             'player_position': self.player.position,
-#             'all_positions': [(p.id_in_group, p.position) for p in self.group.get_players()]
-#         }
 
 
 class ResultsWaitPage(WaitPage):
@@ -165,6 +168,7 @@ class ResultsWaitPage(WaitPage):
     WaitPage to ensure all players have chosen.
     Then set payoffs.
     """
+      # Increment the succeed counter
     after_all_players_arrive = set_payoffs
 
 
@@ -179,16 +183,19 @@ class Results(Page):
         return self.round_number == 5 or self.round_number == C.NUM_ROUNDS
 
     def vars_for_template(self):
+        # self.participant.cooperate_count = 4
+        # Calculate the number of successful cooperation rounds
+        group = self.group
+        lowest = lowest_payoff(group)
+        round = int(lowest / C.PAYOFF_GOOD)
+        return {
+            'succeed': round,
+            'total_payoff': self.participant.payoff
+            # 'succeed': self.success1 + self.success2 + self.success3 + self.success4 + self.success5,
+        }
         # Example: reset everyone's payoff to 0 after round 5
         # (Remove if you don't want to reset.)
         # advice_type = self.participant.vars['advice_type']
-        if self.round_number == 6:
-            for p in self.group.get_players():
-                p.participant.payoff = cu(0)
-        return {
-            # 'advice_type': advice_type,
-            'total_payoff': self.participant.payoff
-        }
 
 class Demographic(Page):
     form_model = 'player'
