@@ -178,10 +178,11 @@ class Results(Page):
         # Calculate the number of successful cooperation rounds
         group = self.group
         avg = avg_payoff(group)
+        round_first = 0
         if self.round_number == 5:
             round = int(avg // C.PAYOFF_GOOD)
         else:
-            round = int(avg // (C.PAYOFF_GOOD *2))
+            round = int(avg // (C.PAYOFF_GOOD * 2))
         return {
             'succeed': round,
             'total_payoff': self.participant.payoff

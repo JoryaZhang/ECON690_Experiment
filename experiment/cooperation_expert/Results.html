@@ -24,13 +24,14 @@
                     <!-- Show AI advice only in Round 5 -->
                     {% if player.round_number == 5 %} 
                     <div style="background-color: #f2fbff; border: 2px solid #2980B9; border-radius: 8px; padding: 15px; margin-top: 20px;">
-                    <p style="color: #2980B9; font-weight: bold; margin-bottom: 6px;">AI Advice: </p>
-                    <p style="color: #000000; margin: 0;">
-                        Recommendation: <strong>Cooperate</strong>.
+                        <p style="color: #2980B9; font-weight: bold; margin-bottom: 6px;">Expert Advice: </p>
+                        <p style="color: #000000; margin: 0;">
+                            Recommendation: <strong>Cooperate</strong>.
                         
-                        Choose to cooperate, as this is the only way for everyone in the group to potentially earn the highest payout of $6.
-                        While quitting might secure $3 if you are the first, it prevents the best outcome and often yields $0,
-                        making cooperation the strategy with higher potential earnings over the long run.  
+    
+                            Cooperating is the only way to potentially earn the highest payout of $6. 
+                            While choosing not to cooperate might yield $3, there’s also a risk of earning nothing ($0) if someone else chooses not to cooperate first. 
+                            Additionally, by not cooperating, you lose the possibility of achieving the best outcome.
                     </p>
                 </div>
                 {% endif %}
